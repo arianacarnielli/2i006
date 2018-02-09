@@ -18,7 +18,10 @@ typedef struct{
 	/* Cree une bibliotheque vide */
 	void initialise_biblio(Biblio* b);
 	
-	/* Afiche tous les livres presentes en une bibliotheque passé en argument */
+	/* Afiche le livre passe en argument */
+	void affichage_livre(s_livre* L);
+	
+	/* Afiche tous les livres presentes en une bibliotheque passe en argument */
 	void affichage(Biblio* b);
 
 	/* Cree une nouvelle instance de livre */
@@ -29,6 +32,9 @@ typedef struct{
 
 	/* Suppression d'un ouvrage */
 	void supression_livre(Biblio* b, s_livre* L);
+	
+	/* Suppression de tous les ouvrages d'une bibliotheque */
+	void supression_biblio(Biblio* b);
 	
 	/* Clone une instance de livre, avec le pointeur suiv = NULL */
 	s_livre* clone_livre(s_livre* L);
