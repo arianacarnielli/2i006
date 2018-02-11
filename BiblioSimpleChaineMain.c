@@ -29,8 +29,9 @@ int main(int argc ,char** argv){
 	nomfic = strdup(argv [1]);
 	nlignes = atoi(argv [2]);
 	
-	printf("Lecture :\n");
+	printf("Lecture\n");
 	lecture_n_entree(nomfic ,nlignes ,&B);
+	
 	
 	do{
 		menu();
@@ -45,7 +46,7 @@ int main(int argc ,char** argv){
 			break;
 			
 		case 2: 
-			printf("Insertion d'un nouvel ouvrage : \n");
+			printf("Insertion d'un nouvel ouvrage : \n\n");
 			printf("Tapez le titre de l'ouvrage : \n");
 			scanf("%s", titre);
 			printf("Tapez l'auteur de l'ouvrage : \n");
@@ -57,54 +58,76 @@ int main(int argc ,char** argv){
 			break;
 		
 		case 3:
-			printf("Suppression d'un ouvrage : \n");
+			printf("Suppression d'un ouvrage : \n\n");
 			printf("Tapez le numero d'identification de l'ouvrage : \n");
-			scanf("%d ", &num);
+			scanf("%d", &num);
 			
 			L = rec_livre_num(&B, num);
-			supression_livre(&B,L);
+			if(L != NULL){
+				supression_livre(&B,L);
+				printf ("L'ouvrage a ete supprime\n");
+			}else{
+				printf("L'ouvrage n'ete pas dans la bibliotheque\n");
+			}
 			
 			break;
 			
 		case 4:
-			printf("Recherche d'un ouvrage par titre : \n");
+			printf("Recherche d'un ouvrage par titre : \n\n");
 			printf("Tapez le titre de l'ouvrage : \n");
 			scanf("%s", titre);
 			
 			L = rec_livre_titre(&B, titre);
-			affichage_livre(L);
-		
+			if(L != NULL){
+				affichage_livre(L);
+			}else{
+				printf("Pas d'ouvrage avec le titre %s \n", titre);
+			}
+			
 			break;
 			
 		case 5:
-			printf("Recherche d'un ouvrage par numero d'identification : \n");
+			printf("Recherche d'un ouvrage par numero d'identification : \n\n");
 			printf("Tapez le numero d'identification de l'ouvrage : \n");
-			scanf("%d ", &num);
+			scanf("%d", &num);
 			
 			L = rec_livre_num(&B, num);
-			affichage_livre(L);
-		
+			if(L != NULL){
+				affichage_livre(L);
+			}else{
+				printf("Pas d'ouvrage avec le numero d'identification %d \n", num);
+			}
+
 			break;
 			
 		case 6: 
-			printf("Recherche des ouvrages d'un meme auteu : \n");
+			printf("Recherche des ouvrages d'un meme auteur : \n\n");
 			printf("Tapez l'auteur de l'ouvrage : \n");
 			scanf("%s", auteur);
 			
 			B2 = rec_livres_auteur(&B, auteur);
-			affichage (&B2);
+			if(B2.L != NULL){
+				affichage (&B2);
+			}else{
+				printf("Pas d'ouvrages de l'auteur %s\n", auteur);
+			}
 			supression_biblio(&B2);
 			
 			break;
 				
 		case 7:
-			printf("Recherche des ouvrages repetes : \n");
+			printf("Recherche des ouvrages repetes : \n\n");
 			B2 = rec_livres_double(&B);
-			affichage (&B2);
+
+			if(B2.L != NULL){
+				affichage (&B2);
+			}else{
+				printf("Pas d'ouvrages repetes\n");
+			}
 			supression_biblio(&B2);
-			
+
 			break;
-		
+
 		}	
 			
 	}while(ch!=0);
