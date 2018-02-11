@@ -61,8 +61,9 @@ void supression_livre(Biblio* b, s_livre* L){
 			free(L->auteur);
 			free(L);
 			trouve = 1;
+		}else{
+			tmp = tmp->suiv;
 		}
-		tmp = tmp->suiv;
 	}
 	if(!trouve){
 		printf("Le livre a supprimer n'a pas ete trouve dans cette bibliotheque.\n");
