@@ -133,6 +133,7 @@ int main(int argc ,char** argv){
 	}while(ch!=0);
 
 	printf("Au revoir\n");
+	supression_biblio(&B);
 
 	return 0;
 }
