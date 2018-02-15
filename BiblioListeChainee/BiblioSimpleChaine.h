@@ -37,7 +37,7 @@ typedef struct{
 	void supression_biblio(Biblio* b);
 	
 	/* Clone une instance de livre, avec le pointeur suiv = NULL */
-	s_livre* clone_livre(s_livre* L);
+	//s_livre* clone_livre(s_livre* L);
 	
 	/*permet de lire n entrees du fichier passe en argument et de les stocker dans une bibliotheque */
 	void lecture_n_entree(char* nomfic, int n, Biblio* b);
@@ -50,11 +50,11 @@ typedef struct{
 	/* Recherche d'un ouvrage par son titre, retourne un pointeur sur la premier instance de livre correspondant s'il existe, NULL sinon */
 	s_livre* rec_livre_titre(Biblio* b, char* titre);
 
-	/* Recherche de tous les livres d'un meme auteur, retourne une bibliotheque des livres de l'auteur passe en paramètre */
-	Biblio rec_livres_auteur(Biblio* b, char* auteur);
+	/* Recherche tous les livres d'un meme auteur et les affiche a l'ecran. Retourne le nombre ded livres trouves */
+	int rec_livres_auteur(Biblio* b, char* auteur);
 	
-	/* Recherche des ouvrages au moins en double (meme auteur et titre). Renvoie une liste comprenant les ouvrages qui sont au moins en double ou NULL si aucune ouvrage est en double */
-	Biblio rec_livres_double(Biblio* b);
+	/* Recherche des ouvrages au moins en double (meme auteur et titre). Affiche tous les ouvrages repetes a l'ecran. Retourne le nombre de livres trouves */
+	int rec_livres_double(Biblio* b);
 	
 /* ETC */
 

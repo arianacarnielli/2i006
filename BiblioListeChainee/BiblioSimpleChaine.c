@@ -80,9 +80,9 @@ void supression_biblio(Biblio* b){
 	}
 }
 
-s_livre* clone_livre(s_livre* L){
-	return creation_livre(L->num, L->titre, L->auteur);
-}
+// s_livre* clone_livre(s_livre* L){
+	// return creation_livre(L->num, L->titre, L->auteur);
+// }
 
 void lecture_n_entree(char* nomfic, int n, Biblio* b){
 	FILE *f =fopen(nomfic ,"r"); 
@@ -127,35 +127,35 @@ s_livre* rec_livre_titre(Biblio* b, char* titre){
 	return NULL;
 }
 
-Biblio rec_livres_auteur(Biblio* b, char* auteur){
+int rec_livres_auteur(Biblio* b, char* auteur){
+	int i = 0;
 	s_livre* tmp = b->L;
-	Biblio new_b;
-	initialise_biblio(&new_b);
 	while(tmp){
 		if(strcmp(tmp->auteur, auteur) == 0){
-			insertion_livre(&new_b, clone_livre(tmp));
+			affichage_livre(tmp);
+			i++;
 		}
 		tmp = tmp->suiv;
 	}
-	return new_b;
+	return i;
 }
 
-Biblio rec_livres_double(Biblio* b){
+int rec_livres_double(Biblio* b){
 	s_livre* tmp = b->L;
-	Biblio new_b;
-	initialise_biblio(&new_b);
+	int i = 0;
 	while(tmp){
 		s_livre* test = b->L;
 		while(test){
 				if((tmp != test) && (strcmp(tmp->auteur, test->auteur) == 0) && (strcmp(tmp->titre, test->titre) == 0)){
-					insertion_livre(&new_b, clone_livre(tmp));
+					affichage_livre(tmp);
+					i++;
 					break;
 				}
 				test = test->suiv;
 		}
 		tmp = tmp->suiv;
 	}
-	return new_b;
+	return i;
 }
 
 void menu(){
@@ -167,9 +167,7 @@ void menu(){
 	printf("5 : Recherche d'un ouvrage par numero d'identification\n");
 	printf("6 : Recherche des ouvrages d'un meme auteur\n");
 	printf("7 : Recherche des ouvrages repetes\n");
-	printf("0 : Sortir du programme\n");
-	
-	
+	printf("0 : Sortir du programme\n");	
 }
 
 

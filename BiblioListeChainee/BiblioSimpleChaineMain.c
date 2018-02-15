@@ -11,7 +11,7 @@ int main(int argc ,char** argv){
 	int ch;
 	char* nomfic;
 	int nlignes;
-	Biblio B, B2;
+	Biblio B;
 	
 	int  num;
 	char titre[100];
@@ -19,7 +19,6 @@ int main(int argc ,char** argv){
 	s_livre* L;
 
 	initialise_biblio(&B);
-	initialise_biblio(&B2);
 
 	if(argc!=3){
 		printf("Erreur format :	%s <NomFichierBiblio.txt> <NbLigneALire>\n", argv [0]);
@@ -105,26 +104,18 @@ int main(int argc ,char** argv){
 			printf("Tapez l'auteur de l'ouvrage : \n");
 			scanf("%s", auteur);
 			
-			B2 = rec_livres_auteur(&B, auteur);
-			if(B2.L != NULL){
-				affichage (&B2);
-			}else{
+			if (!rec_livres_auteur(&B, auteur)){
 				printf("Pas d'ouvrages de l'auteur %s\n", auteur);
 			}
-			supression_biblio(&B2);
 			
 			break;
 				
 		case 7:
 			printf("Recherche des ouvrages repetes : \n\n");
-			B2 = rec_livres_double(&B);
-
-			if(B2.L != NULL){
-				affichage (&B2);
-			}else{
+			
+			if(!rec_livres_double(&B)){
 				printf("Pas d'ouvrages repetes\n");
 			}
-			supression_biblio(&B2);
 
 			break;
 
