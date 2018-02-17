@@ -103,6 +103,7 @@ void lecture_n_entree(char* nomfic, int n, Biblio* b){
 		insertion_livre(b, tmp);
 		cpt++;		
 	}	
+	fclose(f);
 }
 
 s_livre* rec_livre_num(Biblio* b, int nb){

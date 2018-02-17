@@ -12,9 +12,15 @@ BiblioSimpleChaine.o : BiblioSimpleChaine.c BiblioSimpleChaine.h entree_sortie.h
 BiblioSimpleChaineMain.o : BiblioSimpleChaineMain.c BiblioSimpleChaine.h entree_sortie.h
 	gcc $(CFLAGS) -c BiblioSimpleChaineMain.c
 	
-	 
+teste.o : teste.c BiblioSimpleChaine.h entree_sortie.h
+	gcc $(CFLAGS) -c teste.c
+	
+teste : BiblioSimpleChaine.o entree_sortie.o teste.o BiblioSimpleChaine.h entree_sortie.h
+	gcc $(CFLAGS) -o teste BiblioSimpleChaine.o entree_sortie.o teste.o
+	
 main : BiblioSimpleChaine.o entree_sortie.o BiblioSimpleChaineMain.o BiblioSimpleChaine.h entree_sortie.h
 	gcc $(CFLAGS) -o main BiblioSimpleChaine.o entree_sortie.o BiblioSimpleChaineMain.o
+
 clean: 
-	rm -f *.o main
+	rm -f *.o main teste
 

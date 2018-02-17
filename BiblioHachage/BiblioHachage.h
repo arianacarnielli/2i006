@@ -2,7 +2,7 @@
 #define HACH_
 
 typedef struct livre{
-	int clef;
+	unsigned int clef;
 	int num;
 	char* titre;
 	char* auteur;
@@ -23,10 +23,10 @@ typedef struct{
 	tableHachage_t* initTableHachage(int m);
 
 	/* Calcule la clef associee a une chaine de caracteres donnee */
-	int fonctionClef(char* nom);
+	unsigned int fonctionClef(char* nom);
 
 	/* Calcule l'indice de la table de hachage a partir de la clef passee en argument */
-	int fonctionHachage(int m, int clef);
+	unsigned int fonctionHachage(int m, unsigned int clef);
 
 	/* Afiche le livre passe en argument */
 	void affichage_livre(s_livre* L);

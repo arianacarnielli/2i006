@@ -20,20 +20,21 @@ tableHachage_t* initTableHachage(int m){
 	return res;
 }
 
-int fonctionClef(char* nom){
-	int s = 0;
+unsigned int fonctionClef(char* nom){
+	unsigned int s = 1;
 	int i = 0;
 	while(nom[i] != '\0'){
-		s = s + nom[i];
+		s = s * nom[i];
+		/* On a choisii de multiplier les codes ASCII car cela donne des nombres plus grands, on a beaucoup plus de clefs possibles. */
 		i++;
 	}
 	return s;
 }
 
-int fonctionHachage(int m, int clef){
-	float A = (sqrt(5) - 1) / 2.;
-	return (int)(m * (clef * A - (int)(clef * A)));
-	//return (int)(m * fmod(clef * A, 1));
+unsigned int fonctionHachage(int m, unsigned int clef){
+	double A = (sqrt(5) - 1) / 2.;
+	return (unsigned int)(m * (clef * A - (unsigned int)(clef * A)));
+	//return (unsigned int)(m * fmod(clef * A, 1));
 	
 }
 
@@ -69,7 +70,7 @@ void insertion_livre(tableHachage_t* t, s_livre* L){
 	if(L->num == -1){
 		L->num = t->ind_max + 1;
 	}
-	int indice = fonctionHachage(t->m, L->clef);
+	unsigned int indice = fonctionHachage(t->m, L->clef);
 	L->suiv = t->T[indice];
 	t->T[indice] = L;
 	t->nE++;
@@ -79,7 +80,7 @@ void insertion_livre(tableHachage_t* t, s_livre* L){
 }
 
 void supression_livre(tableHachage_t* t, s_livre* L){
-	int indice = fonctionHachage(t->m, L->clef);
+	unsigned int indice = fonctionHachage(t->m, L->clef);
 	s_livre* tmp = t->T[indice];
 	int trouve = 0;
 	if(tmp == L){
@@ -141,6 +142,7 @@ void lecture_n_entree(char* nomfic, int n, tableHachage_t* t){
 		insertion_livre(t, tmp);
 		cpt++;		
 	}	
+	fclose(f);
 }
 
 s_livre* rec_livre_num(tableHachage_t* t, int nb){
@@ -175,7 +177,7 @@ s_livre* rec_livre_titre(tableHachage_t* t, char* titre){
 
 int rec_livres_auteur(tableHachage_t* t, char* auteur){
 	int cpt = 0;
-	int indice = fonctionHachage(t->m, fonctionClef(auteur));
+	unsigned int indice = fonctionHachage(t->m, fonctionClef(auteur));
 	s_livre* tmp = t->T[indice];
 	while(tmp){
 		if(strcmp(tmp->auteur, auteur) == 0){
