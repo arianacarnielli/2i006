@@ -241,6 +241,12 @@
 
 \maketitle
 
+Dans ce projet, on s'intéresse à la gestion d'une bibliothèque, c'est-à-dire un ensemble de livres, où chaque livre a un titre, un nom d'auteur et un numéro d'enregistrement unique. L'objectif est de comparer l'implémentation de cette bibliothèque avec deux structures distinctes : une liste chainée et une table de hachage avec résolution de collision par chainage.
+
+L'implémentation de la liste chainée a été faite de façon standard et en suivant les consignes de l'énoncé, en implémentant quelques fonctions auxiliaires et en cherchant notamment à éviter les fuites de mémoire. Pour la table de hachage, on a modifié la méthode de calcul de la clef par rapport à la méthode proposée. En effet, la somme des codes ASCII d'une chaine de caractères de taille d'environ 10 ne peut donner que des nombres entre 0 et $127 \times 10 = 1270$, ce qui donne un nombre de clefs différentes possibles trop petit par rapport à la taille de la bibliothèque donnée. On a donc choisi de multiplier les codes ASCII, en prenant soin de déclarer toutes les variables nécessaires comme \texttt{unsigned int} afin d'éviter que des calculs d'indice donnent des résultats négatifs à cause du dépassement de capacité d'un \texttt{int}. Cette modification a permis de réduire le nombre de cellules vides de la table de hachage, ce qui améliore ses performances.
+
+La suite de ce rapport présente la comparaison des deux structures selon l'Exercice 3.
+
 \section*{Question 3.1}
 
 La Table \ref{TabQues31} présente les temps de calcul en millisecondes pour réaliser la recherche d'un ouvrage par son numéro ou son titre et la recherche de tous les ouvrages d'un même auteur. Cette simulation a été faite en chargeant toute la bibliothèque du fichier donné (100 000 livres), et on a choisi la taille de la table de hachage comme la moitié de la quantité de livres dans la bibliothèque, soit $m = 50 000$. À chaque recherche, nous avons cherché une donnée non présente dans la bibliothèque pour tester le pire des cas. Chaque recherche a été répétée 100 000 fois.
