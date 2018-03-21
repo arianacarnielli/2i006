@@ -4,9 +4,6 @@
 #include "Solution.h"
 #include "Grille.h"
  
-/* Mettre dans solution S le chemin le plus court entre (i,j) et (k,l). Il fait d'abord le deplacement vertical et après le deplacement horizontal. */
-void PlusCourtChemin(Solution *S, int i, int j, int k, int l);
-
 /* Retourne dans k et j les coordonnees de la premiere case la plus proche de (i,j) de couleur c et qui n'est pas deja noire. Si aucune case de cette couleur n'est disponible, k et l restent inchanges (ce cas n'est pas cense arriver). */ 
 void RechercheCaseNaif_c(Grille *G, int c, int i, int j, int* k, int* l);
 

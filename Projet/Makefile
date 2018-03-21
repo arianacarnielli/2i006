@@ -24,14 +24,23 @@ Checker_SortingRobot.o: Checker_SortingRobot.c Grille.h API_AffGrille.h Solution
 Checker_SortingRobot: Checker_SortingRobot.o API_AffGrille.o Grille.o Solution.o entree_sortie.o
 	gcc -o Checker_SortingRobot Checker_SortingRobot.o API_AffGrille.o Grille.o Solution.o entree_sortie.o -lSDL
 	
-algorithme_naif.o: algorithme_naif.c algorithme_naif.h Grille.h Solution.h
+algorithme_naif.o: algorithme_naif.c algorithme_naif.h Grille.h Solution.h bibliotheque.h
 	gcc -c algorithme_naif.c
 	
-Solveur.o: Solveur.c algorithme_naif.h Grille.h Solution.h entree_sortie.h
+algorithme_circulaire.o: algorithme_circulaire.c algorithme_circulaire.h Grille.h Solution.h bibliotheque.h
+	gcc -c algorithme_circulaire.c
+	
+algorithme_couleur.o: algorithme_couleur.c algorithme_couleur.h algorithme_circulaire.h Grille.h Solution.h bibliotheque.h
+	gcc -c algorithme_couleur.c
+	
+bibliotheque.o: bibliotheque.c bibliotheque.h Grille.h Solution.h
+		gcc -c bibliotheque.c
+	
+Solveur.o: Solveur.c algorithme_naif.h algorithme_circulaire.h algorithme_couleur.h Grille.h Solution.h entree_sortie.h
 	gcc -c Solveur.c
 	
-Solveur: Solveur.o algorithme_naif.o Grille.o Solution.o entree_sortie.o
-	gcc -o Solveur Solveur.o algorithme_naif.o Grille.o Solution.o entree_sortie.o
+Solveur: Solveur.o algorithme_naif.o algorithme_circulaire.o algorithme_couleur.o bibliotheque.o Grille.o Solution.o entree_sortie.o
+	gcc -o Solveur Solveur.o algorithme_naif.o algorithme_circulaire.o algorithme_couleur.o bibliotheque.o Grille.o Solution.o entree_sortie.o
 	
 clean:
 	rm -f *.o Game_SortingRobot Checker_SortingRobot Solveur

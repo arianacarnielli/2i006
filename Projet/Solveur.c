@@ -4,6 +4,7 @@
 
 #include "algorithme_naif.h"
 #include "algorithme_circulaire.h"
+#include "algorithme_couleur.h"
 #include "Grille.h"
 #include "Solution.h"
 
@@ -60,7 +61,7 @@ int main(int argc, char**argv){
 		case 3:
 			printf("Solution par l'algorithme circulaire par couleurs en cours...\n");
 			start = time(NULL);
-			algorithme_parcouleur(&G, &S, graine);
+			algorithme_couleur(&G, &S, graine);
 			duree = difftime(time(NULL), start);
 			break;
 	}

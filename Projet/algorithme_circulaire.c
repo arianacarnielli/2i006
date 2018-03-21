@@ -1,80 +1,80 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "algorithme_naif.h"
 
-
+#include "bibliotheque.h"
 #include "Solution.h"
 #include "Grille.h"
 
 void RechercheCaseCirculaire_c(Grille *G, int c, int i, int j, int* k, int* l){
 
 	int L = 1;
-	int lg,ld;
+	int lg, ld, k_temp;
+	/* On utilise une variable temporaire pour la valeur de k aussi pour la praticité et car cela augmente un peu la vitesse. */ 
 	int max = G->m + G->n;
 
 	while(L < max){
 
-		*k = i - L;
 		lg = j;
 		ld = j;
 
-		for(*k; *k <= i; (*k)++){
+		for(k_temp = i - L; k_temp <= i; k_temp++){
 
-			if ((*k >= 0) && (*k < G->m) && (lg >= 0) && (lg < G->n) && (c == G->T[*k][lg].fond) && (G->T[*k][lg].fond != G->T[*k][lg].piece)){
+			if (EstDansGrille(G, k_temp, lg) && PieceEgaleFond(G, k_temp, lg, c) && (!EstCaseNoire(G, k_temp, lg))){
+				*k = k_temp;
 				*l = lg;
 				return;
 			}
-			if ((*k >= 0) && (*k < G->m) && (ld >= 0) && (ld < G->n) && (c == G->T[*k][ld].fond) && (G->T[*k][ld].fond != G->T[*k][ld].piece)){
+			if (EstDansGrille(G, k_temp, ld) && PieceEgaleFond(G, k_temp, ld, c) && (!EstCaseNoire(G, k_temp, ld))){
+				*k = k_temp;
 				*l = ld;
 				return;
 			}
 
 			lg = lg - 1;
 			ld = ld + 1;
-
 		}
-		*k = i + 1;
+		
 		lg = j - L + 1;
 		ld = j + L - 1;
 
-
-		for(*k; *k <= i + L; (*k)++){
-			if ((*k >= 0) && (*k < G->m) && (lg >= 0) && (lg < G->n) && (c == G->T[*k][lg].fond) && (G->T[*k][lg].fond != G->T[*k][lg].piece)){
+		for(k_temp = i + 1; k_temp <= i + L; k_temp++){
+			if (EstDansGrille(G, k_temp, lg) && PieceEgaleFond(G, k_temp, lg, c) && (!EstCaseNoire(G, k_temp, lg))){
+				*k = k_temp;
 				*l = lg;
 				return;
 			}
-			if ((*k >= 0) && (*k < G->m) && (ld >= 0) && (ld < G->n) && (c == G->T[*k][ld].fond) && (G->T[*k][ld].fond != G->T[*k][ld].piece)){
+			if (EstDansGrille(G, k_temp, ld) && PieceEgaleFond(G, k_temp, ld, c) && (!EstCaseNoire(G, k_temp, ld))){
+				*k = k_temp;
 				*l = ld;
 				return;
 			}
 
 			lg = lg + 1;
 			ld = ld - 1;
-
 		}
 		L++;
 	}
-
 }
 void RechercheCaseCirculaire_nn(Grille *G, int i, int j, int* k, int* l){
-	int L = 1;
-	int lg,ld;
+	int L = 0;
+	int lg,ld, k_temp;
 	int max = G->m + G->n;
 
 	while(L < max){
 
-		*k = i - L;
 		lg = j;
 		ld = j;
 
-		for(*k; *k <= i; (*k)++){
+		for(k_temp = i - L; k_temp <= i; k_temp++){
 
-			if ((*k >= 0) && (*k < G->m) && (lg >= 0) && (lg < G->n) && (G->T[*k][lg].fond != G->T[*k][lg].piece) && (G->T[*k][lg].piece != -1)){
+			if (EstDansGrille(G, k_temp, lg) && (!EstCaseNoire(G, k_temp, lg)) && ExistePiece(G, k_temp, lg)){
+				*k = k_temp;
 				*l = lg;
 				return;
 			}
-			if ((*k >= 0) && (*k < G->m) && (ld >= 0) && (ld < G->n) && (G->T[*k][ld].fond != G->T[*k][ld].piece) && (G->T[*k][ld].piece != -1)){
+			if (EstDansGrille(G, k_temp, ld) && (!EstCaseNoire(G, k_temp, ld)) && ExistePiece(G, k_temp, ld)){
+				*k = k_temp;
 				*l = ld;
 				return;
 			}
@@ -83,29 +83,28 @@ void RechercheCaseCirculaire_nn(Grille *G, int i, int j, int* k, int* l){
 			ld = ld + 1;
 
 		}
-		*k = i + 1;
+
 		lg = j - L + 1;
 		ld = j + L - 1;
 
 
-		for(*k; *k <= i + L; (*k)++){
-			if ((*k >= 0) && (*k < G->m) && (lg >= 0) && (lg < G->n) && (G->T[*k][lg].fond != G->T[*k][lg].piece) && (G->T[*k][lg].piece != -1)){
+		for(k_temp = i + 1; k_temp <= i + L; k_temp++){
+			if (EstDansGrille(G, k_temp, lg) && (!EstCaseNoire(G, k_temp, lg)) && ExistePiece(G, k_temp, lg)){
+				*k = k_temp;
 				*l = lg;
 				return;
 			}
-			if ((*k >= 0) && (*k < G->m) && (ld >= 0) && (ld < G->n) && (G->T[*k][ld].fond != G->T[*k][ld].piece) && (G->T[*k][ld].piece != -1)){
+			if (EstDansGrille(G, k_temp, ld) && (!EstCaseNoire(G, k_temp, ld)) && ExistePiece(G, k_temp, ld)){
+				*k = k_temp;
 				*l = ld;
 				return;
 			}
-
+			
 			lg = lg + 1;
 			ld = ld - 1;
-
 		}
 		L++;
 	}
-
-
 }
 
 void algorithme_circulaire(Grille *G, Solution *S, int graine){
@@ -116,9 +115,9 @@ void algorithme_circulaire(Grille *G, Solution *S, int graine){
 	Solution_init(S);
 	
 	while (G->cptr_noire < nb_tot_noir){
-		if (G->T[G->ir][G->jr].robot >= 0){
+		if (RobotPortePiece(G)){
 		/* Le robot a une piece, il cherche la case la plus proche de la meme couleur. */
-			RechercheCaseCirculaire_c(G, G->T[G->ir][G->jr].robot, G->ir, G->jr, &k, &l);
+			RechercheCaseCirculaire_c(G, CouleurPieceRobot(G), G->ir, G->jr, &k, &l);
 		}else{
 		/* Le robot n'a pas de piece, il cherche la case la plus proche avec une piece libre. */
 			RechercheCaseCirculaire_nn(G, G->ir, G->jr, &k, &l);		
