@@ -11,7 +11,11 @@ typedef struct element
 }AVL;
 
 AVL * crer_noeud (int val);
-void construire (AVL * arbre,int val);
-
-
+AVL* rotation_droite(AVL * arbre)
+void maj_hauteur(AVL * arbre);
+AVL *rotation_gauche(AVL* arbre);
+AVL *rotation_double_gauche(AVL** arbre );
+AVL * rotation_double_droit(AVL* arbre);
+AVL* insererABR_AVL(AVL *arbre,int val);
+int ABR_hauteur(AVL *arbre);
 #endif
