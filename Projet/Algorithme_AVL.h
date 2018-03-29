@@ -33,8 +33,11 @@ AVL* rotation_droite(AVL * arbre);
 /* Fait une rotation gauche. */
 AVL *rotation_gauche(AVL* arbre);
 
-AVL *rotation_double_gauche(AVL* arbre );
-AVL * rotation_double_droit(AVL* arbre);
+/* Supprime le noeud de l'AVL qui a val comme valeur et renvoie la nouvelle AVR. Si la valeur recherche n'est pas dans l'arbre, ne fait rien. */
+AVL* supprimer_noeud(AVL* arbre, int val)
+
+// AVL *rotation_double_gauche(AVL* arbre );
+// AVL * rotation_double_droit(AVL* arbre);
 
 
 #endif

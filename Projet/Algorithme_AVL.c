@@ -5,6 +5,7 @@
 #include "bibliotheque.h"
 #include "Solution.h"
 #include "Grille.h"
+#include "Algorithme_AVL.h" 
 
 AVL *creer_noeud(int val){
 	AVL* temp = malloc(sizeof(AVL));
@@ -89,6 +90,7 @@ AVL* equilibrer(AVL* arbre){
 }
 
 AVL* rotation_droite(AVL* arbre){
+	
 	AVL* racine = arbre;
 	AVL* gauche = arbre->fg;
 	AVL* ptf_droit = gauche->fd;
@@ -117,7 +119,29 @@ AVL* rotation_gauche(AVL* arbre){
 	return arbre;
 }
 
-AVL *rotation_double_gauche(AVL** arbre ){
+AVL* supprimer_noeud(AVL* arbre, int val){
+	AVL* racine = arbre;
+	
+	if(arbre->val < val){ /* Si la valeur recherche est plus petite que la racine. */
+		arbre->fg = supprimer_noeud(arbre->fg, val);
+	}else{
+		if(arbre->val > val){ /* Si la valeur recherche est plus grande que la racine. */
+			arbre->fd = supprimer_noeud(arbre->fd, val);
+		}else{
+			if (arbre->fg == NULL){ /* On a que le fils droit, il devient la nouvelle racine */
+				racine = arbre->fd;
+				free(arbre);
+			}else{
+				int max;
+				arbre->fg = supprimer_noeud(arbre->fg, max);
+				arbre->val = max;
+			}
+		}
+	}
+	return racine;
+}
+/* 
+AVL* rotation_double_gauche(AVL* arbre ){
 	arbre->fd=rotation_droite(arbre->fd);
 	maj_hauteur(arbre);
 	return rotation_gauche(arbre);
@@ -129,12 +153,7 @@ AVL * rotation_double_droit(AVL* arbre){
 	maj_hauteur(arbre);
 	return rotation_droite(arbre);
 }
+ */
 
-
-
-AVL * supprimer_noed{
-
-
-}
 
 
