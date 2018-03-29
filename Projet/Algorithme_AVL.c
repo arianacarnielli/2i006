@@ -7,90 +7,116 @@
 #include "Grille.h"
 
 AVL *creer_noeud(int val){
-	AVL *res =malloc(sizeof(AVL));
-	res->hauteur=0;
-	res->val=val;
-	res->fg=NULL;
-	res->fd=NULL;
-	return res ;
+	AVL* temp = malloc(sizeof(AVL));
+	res->hauteur = 0;
+	res->val = val;
+	res->fg = NULL;
+	res->fd = NULL;
+	return res;
 }
 
-AVL* insererABR_AVL(AVL *arbre,int val){
-
-	if((arbre)==NULL){
-		return creer_noeud(val);
-
-	}
-	
-		if(val<arbre->val){
-			if(arbre->fg==NULL){
-				AVL *nv=creer_noeud(val);
-				arbre->fg=nv;
-			}
-			else
-				arbre->fg=insererABR_AVL((arbre)->fg,val);
-			
-		}
-		else{
-			if(arbre->fd==NULL){
-				AVL *nv=creer_noeud(val);
-				arbre->fd=nv;
-			}
-			else
-				arbre->fd=insererABR_AVL((arbre)->fd,val);
-		}
-	
-
-	maj_hauteur(arbre);
-	arbre=bien_equilibre(arbre);
-	return arbre;
-
-}
-
-AVL * supprimer_noed{
-
-
-}
-
-int ABR_hauteur(AVL *arbre){
-	if(arbre==NULL){
-		return-1;
+int ABR_hauteur(AVL* arbre){
+	if(arbre == NULL){
+		return -1;
 	}
 	return arbre->hauteur;
 }
 
-void maj_hauteur(AVL * arbre){
+void maj_hauteur(AVL* arbre){
 
-	if(arbre)
-		arbre->hauteur=max(ABR_hauteur(arbre->fd),ABR_hauteur(arbre->fg));
+	if(arbre){
+		arbre->hauteur = 1 + max(ABR_hauteur(arbre->fd), ABR_hauteur(arbre->fg));
+	}
 }
 
-AVL* rotation_droite(AVL * arbre){
-	AVL *r=arbre;
-	AVL*g=r->fg;
-	AVL*v=g->fd;
-	r->fg=v;
-	g->fd=r;
-	arbre=g;
-	maj_hauteur(arbre);
-	maj_hauteur((arbre)->fd);
+void maj_toutes_hauteurs(AVL* arbre){
+	if(arbre){
+		maj_toutes_hauteurs(arbre->fg);
+		maj_toutes_hauteurs(arbre->fd);
+		maj_hauteur(arbre);
+	}
+}
+
+AVL* inserer_AVL(AVL* arbre,int val){
+
+	if(arbre == NULL){
+		return creer_noeud(val);
+	}	
+	if(val < arbre->val){ /* Si la nouvelle valeur est plus petite que la racine */
+		if(arbre->fg == NULL){ /* Si la racine n'a pas de fils gauche */
+			AVL*nv = creer_noeud(val);
+			arbre->fg = nv;
+		}else{ /* La racine a un fils gauche deja, on fait l'appel recursif */
+			arbre->fg = inserer_AVL(arbre->fg,val);
+		}
+	}else{ /* La nouvelle valeur est plus grande que la racine */
+		if(arbre->fd == NULL){ /* Si la racine n'a pas de fils droit */
+			AVL* nv = creer_noeud(val);
+			arbre->fd = nv;
+		}else{ /* La racine a un fils droit deja, on fait l'appel recursif*/
+			arbre->fd = inserer_AVL(arbre->fd,val);
+		}
+	}
+	arbre = equilibrer(arbre);
 	return arbre;
-
 }
 
-AVL *rotation_gauche(AVL* arbre){
-
-	AVL *P=arbre;
-	AVL *q=p->fd;
-	AVL *v=q->fg;
-	q->fg=p;
-	p->fd=v;
-	(arbre)=q;
-
+AVL* equilibrer(AVL* arbre){
+	int HD,HG; /* Les hauteurs des fils gauche et droite de l'arbre */
+	int hd,hg; /* Les hauteurs de 2 petits fils de l'arbre, soit les fils du fils gauche ou droit. */
+	if(arbre){
+		HD = ABR_hauteur(arbre->fd);
+		HG = ABR_hauteur(arbre->fg);
+		if(HG-HD == 2){
+			hg = ABR_hauteur(arbre->fg->fg);
+			hd = ABR_hauteur(arbre->fg->fd);
+			if(hg < hd){
+				arbre->fg = rotation_gauche(arbre->fg);
+			}
+			arbre = rotation_droite(arbre);
+		}
+		if(HG-HD == -2){
+			hg = ABR_hauteur(arbre->fd->fg);
+			hd = ABR_hauteur(arbre->fd->fd);
+			if(hg < hd){
+				arbre->fd = rotation_gauche(arbre->fd);
+			}
+			arbre = rotation_droite(arbre);
+		}
 	maj_hauteur(arbre);
-	maj_hauteur((arbre)->fg);
-return arbre;
+	}
+	return arbre;
 }
+
+AVL* rotation_droite(AVL* arbre){
+	AVL* racine = arbre;
+	AVL* gauche = arbre->fg;
+	AVL* ptf_droit = gauche->fd;
+	racine->fg = ptf_droit;
+	gauche->fd = racine;
+	arbre = gauche;
+	
+	maj_hauteur(arbre->fd);
+	maj_hauteur(arbre);
+
+	return arbre;
+}
+
+AVL* rotation_gauche(AVL* arbre){
+
+	AVL* racine = arbre;
+	AVL* droit = racine->fd;
+	AVL* ptf_gauche = droit->fg;
+	droit->fg = racine;
+	racine->fd = ptf_droit;
+	arbre = droit;
+		
+	maj_hauteur(arbre->fg);
+	maj_hauteur(arbre);
+
+	return arbre;
+}
+
 AVL *rotation_double_gauche(AVL** arbre ){
 	arbre->fd=rotation_droite(arbre->fd);
 	maj_hauteur(arbre);
@@ -105,29 +131,10 @@ AVL * rotation_double_droit(AVL* arbre){
 }
 
 
-AVL * bien_equilibre(AVL *arbre){
-	int HD,HG;
-	int hd,hg;
-if(arbre){
-	HD=ABR_hauteur(arbre->fd);
-	HG=ABR_hauteur(arbre->fg);
-	if((HG-HD)==2){
-		hg=ABR_hauteur(arbre->fg->fg);
-		hd=ABR_hauteur(arbre->fg->fd);
-		if(hg<hd)
-			rotation_gauche(arbre->fg);
-		rotation_droite(arbre);
-	
-	}
-	if((HG-HD)==-2){
-		hg=ABR_hauteur(arbre->fd->fg);
-		hd=ABR_hauteur(arbre->fd->fd);
-		if(hg<hd)
-			rotation_gauche(arbre->fd);
-		rotation_droite(arbre);
-	}
+
+AVL * supprimer_noed{
+
 
 }
 
-}
 
