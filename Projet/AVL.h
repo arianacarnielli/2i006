@@ -33,6 +33,9 @@ AVL* rotation_droite(AVL * arbre);
 /* Fait une rotation gauche. */
 AVL *rotation_gauche(AVL* arbre);
 
+/* Supprime le noeud de l'AVL passe en argument avec la plus grande valeur. Sauvegarde cette valeur dans max. */
+AVL* supprimer_noeud_max(AVL* arbre, int* max);
+
 /* Supprime le noeud de l'AVL qui a val comme valeur et renvoie la nouvelle AVR. Si la valeur recherche n'est pas dans l'arbre, ne fait rien. */
 AVL* supprimer_noeud(AVL* arbre, int val);
 

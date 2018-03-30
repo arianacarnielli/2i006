@@ -19,10 +19,28 @@ int main(){
 	printf("Avant la suppression: \n\n");
 	affiche_infixe(test);
 
-	printf("/n /n Apres la suppression de 7 \n\n");
+	/*printf("\n\nApres la suppression de 7 \n\n");
 	test = supprimer_noeud(test, 7);
-
 	affiche_infixe(test);
+*/
+	
+	printf("\n\nApres la suppression de 0 \n\n");
+	test = supprimer_noeud(test, 0);
+	affiche_infixe(test);
+
+	printf("\n\nApres la suppression de 2 \n\n");
+	test = supprimer_noeud(test, 2);
+	affiche_infixe(test);
+
+	printf("\n\nApres la suppression de 1 \n\n");
+	test = supprimer_noeud(test, 1);
+	affiche_infixe(test);
+
+	/*printf("\n\nApres la suppression de 6 \n\n");
+	test = supprimer_noeud(test, 6);
+	affiche_infixe(test);*/
+
+
 
 	return 0;
 

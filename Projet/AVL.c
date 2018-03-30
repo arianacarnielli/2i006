@@ -127,31 +127,59 @@ AVL* rotation_gauche(AVL* arbre){
 	return arbre;
 }
 
+
+AVL* supprimer_noeud_max(AVL* arbre, int* max){
+	if(arbre){
+		AVL* racine;
+		if(arbre->fd == NULL){
+			*max = arbre->val;
+			racine = arbre->fg;
+			free(arbre);
+			return racine;
+		}
+		arbre->fd = supprimer_noeud_max(arbre->fd, max);
+		return arbre;
+	}
+	return arbre;
+}
+
 AVL* supprimer_noeud(AVL* arbre, int val){
-	AVL* racine = arbre;
-	
-	if(arbre->val < val){ /* Si la valeur recherche est plus petite que la racine. */
-		printf("valeur plus petite\n ");
-		arbre->fg = supprimer_noeud(arbre->fg, val);
-	}else{
-		if(arbre->val > val){ /* Si la valeur recherche est plus grande que la racine. */
-			printf("valeur plus grande\n");
-			arbre->fd = supprimer_noeud(arbre->fd, val);
+	if(arbre){
+
+		AVL* racine = arbre;
+		
+		if(val < arbre->val){ /* Si la valeur recherche est plus petite que la racine. */
+			printf("valeur plus petite\n ");
+			arbre->fg = supprimer_noeud(arbre->fg, val);
+			arbre = equilibrer(arbre);
+
 		}else{
-			printf("valeur trouve");
-			if (arbre->fg == NULL){ /* On a que le fils droit, il devient la nouvelle racine */
-				printf("on essaie de liberer le noeud\n");
-				racine = arbre->fd;
-				free(arbre);
+			if(val > arbre->val){ /* Si la valeur recherche est plus grande que la racine. */
+				printf("valeur plus grande\n");
+				arbre->fd = supprimer_noeud(arbre->fd, val);
+				arbre = equilibrer(arbre);
 			}else{
-				int max;
-				arbre->fg = supprimer_noeud(arbre->fg, max);
-				arbre->val = max;
+				printf("valeur trouve\n");
+				if (arbre->fg == NULL){ /* On a que le fils droit, il devient la nouvelle racine */
+					printf("on essaie de liberer le noeud\n");
+					racine = arbre->fd;
+					free(arbre);
+				}else{
+					printf("il a le fils gauche, on essaie de supprimer le fils gauche e remplacer la racine.\n");
+					int max;
+					arbre->fg = supprimer_noeud_max(arbre->fg, &max);
+					arbre->val = max;
+					arbre = equilibrer(arbre);
+				}
 			}
 		}
+		return racine;
 	}
-	return racine;
+	return arbre;
 }
+
+
+
 
 void affiche_infixe(AVL* arbre){
 
