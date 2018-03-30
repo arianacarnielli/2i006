@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
-#include "bibliotheque.h"
-#include "Solution.h"
-#include "Grille.h"
-#include "Algorithme_AVL.h" 
+#include "AVL.h" 
 
-AVL *creer_noeud(int val){
-	AVL* temp = malloc(sizeof(AVL));
+AVL* creer_noeud(int val){
+	AVL* res = malloc(sizeof(AVL));
 	res->hauteur = 0;
 	res->val = val;
 	res->fg = NULL;
@@ -26,7 +24,8 @@ int ABR_hauteur(AVL* arbre){
 void maj_hauteur(AVL* arbre){
 
 	if(arbre){
-		arbre->hauteur = 1 + max(ABR_hauteur(arbre->fd), ABR_hauteur(arbre->fg));
+		printf ("%d",fmax(2,1));
+		arbre->hauteur = 1 + fmax(ABR_hauteur(arbre->fd), ABR_hauteur(arbre->fg));
 	}
 }
 
@@ -110,7 +109,7 @@ AVL* rotation_gauche(AVL* arbre){
 	AVL* droit = racine->fd;
 	AVL* ptf_gauche = droit->fg;
 	droit->fg = racine;
-	racine->fd = ptf_droit;
+	racine->fd = ptf_gauche;
 	arbre = droit;
 		
 	maj_hauteur(arbre->fg);
@@ -139,6 +138,15 @@ AVL* supprimer_noeud(AVL* arbre, int val){
 		}
 	}
 	return racine;
+}
+
+void affiche_infixe(AVL* arbre){
+
+	if (arbre){
+		affiche_infixe(arbre->fg);
+		printf("val: %d et hauteur: %d \n", arbre->val, ABR_hauteur(arbre));
+		affiche_infixe(arbre->fd);
+	}
 }
 /* 
 AVL* rotation_double_gauche(AVL* arbre ){

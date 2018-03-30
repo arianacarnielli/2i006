@@ -1,5 +1,5 @@
-#ifndef __ALGOAVL__
-#define __ALGOAVL__
+#ifndef __AVL__
+#define __AVL__
 
 typedef struct element{
 	int val;
@@ -10,7 +10,7 @@ typedef struct element{
 
 
 /* Cree un noeud de l'AVL et initialise ses fils a NULL. */
-AVL* crer_noeud(int val);
+AVL* creer_noeud(int val);
 
 /* Insere la valeur passe en argument dans l'AVL, creant un nouveau noeud. L'AVL retourne est deja equilibre. */
 AVL* inserer_AVL(AVL* arbre,int val);
@@ -34,7 +34,11 @@ AVL* rotation_droite(AVL * arbre);
 AVL *rotation_gauche(AVL* arbre);
 
 /* Supprime le noeud de l'AVL qui a val comme valeur et renvoie la nouvelle AVR. Si la valeur recherche n'est pas dans l'arbre, ne fait rien. */
-AVL* supprimer_noeud(AVL* arbre, int val)
+AVL* supprimer_noeud(AVL* arbre, int val);
+
+void affiche_infixe(AVL* arbre);
+
+
 
 // AVL *rotation_double_gauche(AVL* arbre );
 // AVL * rotation_double_droit(AVL* arbre);
