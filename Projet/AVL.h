@@ -38,6 +38,9 @@ AVL* supprimer_noeud(AVL* arbre, int val);
 
 void affiche_infixe(AVL* arbre);
 
+/* Calcule le max entre du entiers. On l'utilise car la fonction max de stdlib retourne de resultats bizarres. */
+int maximum(int i, int j);
+
 
 
 // AVL *rotation_double_gauche(AVL* arbre );

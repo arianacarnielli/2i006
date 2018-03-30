@@ -5,6 +5,16 @@
 
 #include "AVL.h" 
 
+
+int maximum(int i, int j){
+	if (i < j){
+		return j;
+	}else{
+		return i;
+	}
+}
+
+
 AVL* creer_noeud(int val){
 	AVL* res = malloc(sizeof(AVL));
 	res->hauteur = 0;
@@ -24,8 +34,7 @@ int ABR_hauteur(AVL* arbre){
 void maj_hauteur(AVL* arbre){
 
 	if(arbre){
-		printf ("%d",fmax(2,1));
-		arbre->hauteur = 1 + fmax(ABR_hauteur(arbre->fd), ABR_hauteur(arbre->fg));
+		arbre->hauteur = 1 + maximum(ABR_hauteur(arbre->fd), ABR_hauteur(arbre->fg));
 	}
 }
 
@@ -53,7 +62,7 @@ AVL* inserer_AVL(AVL* arbre,int val){
 		if(arbre->fd == NULL){ /* Si la racine n'a pas de fils droit */
 			AVL* nv = creer_noeud(val);
 			arbre->fd = nv;
-		}else{ /* La racine a un fils droit deja, on fait l'appel recursif*/
+		}else{ /* La racine a un fils droit deja, on fait l'appel recursif  */
 			arbre->fd = inserer_AVL(arbre->fd,val);
 		}
 	}
@@ -79,9 +88,9 @@ AVL* equilibrer(AVL* arbre){
 			hg = ABR_hauteur(arbre->fd->fg);
 			hd = ABR_hauteur(arbre->fd->fd);
 			if(hg < hd){
-				arbre->fd = rotation_gauche(arbre->fd);
+				arbre->fd = rotation_droite(arbre->fd);
 			}
-			arbre = rotation_droite(arbre);
+			arbre = rotation_gauche(arbre);
 		}
 	maj_hauteur(arbre);
 	}
@@ -122,12 +131,16 @@ AVL* supprimer_noeud(AVL* arbre, int val){
 	AVL* racine = arbre;
 	
 	if(arbre->val < val){ /* Si la valeur recherche est plus petite que la racine. */
+		printf("valeur plus petite\n ");
 		arbre->fg = supprimer_noeud(arbre->fg, val);
 	}else{
 		if(arbre->val > val){ /* Si la valeur recherche est plus grande que la racine. */
+			printf("valeur plus grande\n");
 			arbre->fd = supprimer_noeud(arbre->fd, val);
 		}else{
+			printf("valeur trouve");
 			if (arbre->fg == NULL){ /* On a que le fils droit, il devient la nouvelle racine */
+				printf("on essaie de liberer le noeud\n");
 				racine = arbre->fd;
 				free(arbre);
 			}else{
@@ -143,8 +156,11 @@ AVL* supprimer_noeud(AVL* arbre, int val){
 void affiche_infixe(AVL* arbre){
 
 	if (arbre){
+
 		affiche_infixe(arbre->fg);
+
 		printf("val: %d et hauteur: %d \n", arbre->val, ABR_hauteur(arbre));
+
 		affiche_infixe(arbre->fd);
 	}
 }
