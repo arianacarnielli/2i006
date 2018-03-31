@@ -25,4 +25,10 @@ int CouleurPieceRobot(Grille* G);
 /* Retourne 1 si la position (i,j) est une case du tableau. */
 int EstDansGrille(Grille* G, int i, int j);
 
+/* Retourne la distance en nombre de cases entre (i, j) et (k, l). */
+int Distance(int i, int j, int k, int l);
+
+/* Retourne la couleur de fond de une case donne. */
+int CouleurFond(Grille* G, int i, int j);
+
 #endif

@@ -5,6 +5,7 @@
 #include "algorithme_naif.h"
 #include "algorithme_circulaire.h"
 #include "algorithme_couleur.h"
+#include "algorithme_AVL.h"
 #include "Grille.h"
 #include "Solution.h"
 
@@ -64,6 +65,14 @@ int main(int argc, char**argv){
 			algorithme_couleur(&G, &S, graine);
 			duree = difftime(time(NULL), start);
 			break;
+			
+		case 4:
+			printf("Solution par l'algorithme AVL en cours...\n");
+			start = time(NULL);
+			algorithme_AVL(&G, &S, graine);
+			duree = difftime(time(NULL), start);
+			break;
+		
 	}
 	
 	printf ("Le solveur a pris %f secondes pour resoudre le jeu.\n", duree);

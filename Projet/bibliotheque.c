@@ -54,6 +54,14 @@ int CouleurPieceRobot(Grille* G){
 	return G->T[G->ir][G->jr].robot;
 }
 
+int CouleurFond(Grille* G, int i, int j){
+	return G->T[i][j].fond;
+}
+
 int EstDansGrille(Grille* G, int i, int j){
 	return (i >= 0) && (i < G->m) && (j >= 0) && (j < G->n);
+}
+
+int Distance(int i, int j, int k, int l){
+	return abs(i - k) + abs (j - l);
 }

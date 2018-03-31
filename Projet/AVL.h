@@ -9,6 +9,7 @@ typedef struct element{
 }AVL;
 
 
+
 /* Cree un noeud de l'AVL et initialise ses fils a NULL. */
 AVL* creer_noeud(int val);
 
@@ -41,13 +42,18 @@ AVL* supprimer_noeud(AVL* arbre, int val);
 
 void affiche_infixe(AVL* arbre);
 
-/* Calcule le max entre du entiers. On l'utilise car la fonction max de stdlib retourne de resultats bizarres. */
+/* Calcule le max entre deux entiers. On l'utilise car la fonction max de stdlib retourne de resultats bizarres. */
 int maximum(int i, int j);
 
+/* Retourne la plus proche valeur dans l'AVL de c. En cas d'egalite de distances, elle retourne la valeur plus petite. L'AVL doit contenir que des valeurs positives. */
+int recherche_plus_proche(AVL* arbre, int c);
+
+/* Teste si une arbre est bien un AVL. */
+int est_AVL(AVL* arbre);
 
 
-// AVL *rotation_double_gauche(AVL* arbre );
-// AVL * rotation_double_droit(AVL* arbre);
+// AVL* rotation_double_gauche(AVL* arbre);
+// AVL* rotation_double_droit(AVL* arbre);
 
 
 #endif

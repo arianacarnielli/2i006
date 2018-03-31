@@ -33,14 +33,20 @@ algorithme_circulaire.o: algorithme_circulaire.c algorithme_circulaire.h Grille.
 algorithme_couleur.o: algorithme_couleur.c algorithme_couleur.h algorithme_circulaire.h Grille.h Solution.h bibliotheque.h
 	gcc -c algorithme_couleur.c
 	
+algorithme_AVL.o: algorithme_AVL.c algorithme_AVL.h AVL.h Grille.h Solution.h bibliotheque.h
+	gcc -c algorithme_AVL.c
+	
+AVL.o: AVL.c AVL.h
+	gcc -c AVL.c
+	
 bibliotheque.o: bibliotheque.c bibliotheque.h Grille.h Solution.h
 		gcc -c bibliotheque.c
 	
-Solveur.o: Solveur.c algorithme_naif.h algorithme_circulaire.h algorithme_couleur.h Grille.h Solution.h entree_sortie.h
+Solveur.o: Solveur.c algorithme_naif.h algorithme_circulaire.h algorithme_couleur.h algorithme_AVL.h Grille.h Solution.h entree_sortie.h 
 	gcc -c Solveur.c
 	
-Solveur: Solveur.o algorithme_naif.o algorithme_circulaire.o algorithme_couleur.o bibliotheque.o Grille.o Solution.o entree_sortie.o
-	gcc -o Solveur Solveur.o algorithme_naif.o algorithme_circulaire.o algorithme_couleur.o bibliotheque.o Grille.o Solution.o entree_sortie.o
+Solveur: Solveur.o algorithme_naif.o algorithme_circulaire.o algorithme_couleur.o algorithme_AVL.o bibliotheque.o AVL.o Grille.o Solution.o entree_sortie.o
+	gcc -o Solveur Solveur.o algorithme_naif.o algorithme_circulaire.o algorithme_couleur.o algorithme_AVL.o bibliotheque.o AVL.o Grille.o Solution.o entree_sortie.o
 	
 clean:
 	rm -f *.o Game_SortingRobot Checker_SortingRobot Solveur
