@@ -70,7 +70,6 @@ void algorithme_AVL(Grille *G, Solution *S, int graine){
 	Solution_init(S);
 	
 	AVL*** M = creer_table_AVL(G);
-	printf("Passei aqui\n");
 	
 	while (G->cptr_noire < nb_tot_noir){
 		if (RobotPortePiece(G)){
@@ -79,9 +78,7 @@ void algorithme_AVL(Grille *G, Solution *S, int graine){
 			
 		}else{
 		/* Le robot n'a pas de piece, il cherche la case la plus proche avec une piece libre. */
-			printf("Procurando case non noire\n");
 			RechercheCaseAVL_nn(G, G->ir, G->jr, &k, &l, M);	
-			printf("Achei\n");
 		}
 				
 		PlusCourtChemin(S, G->ir, G->jr, k, l);

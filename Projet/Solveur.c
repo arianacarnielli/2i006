@@ -14,7 +14,7 @@ int main(int argc, char**argv){
 	Grille G;
 	Solution S;
 	int graine, ch;
-	time_t start;
+	clock_t start;
 	double duree;
 
 	if (argc != 6){
@@ -47,30 +47,30 @@ int main(int argc, char**argv){
 
 		case 1:
 			printf("Solution par l'algorithme naif en cours...\n");
-			start = time(NULL);
+			start = clock();
 			algorithme_naif(&G, &S, graine);
-			duree = difftime(time(NULL), start);
+			duree = (double)(clock() - start) / CLOCKS_PER_SEC;
 			break;
 
 		case 2:
 			printf("Solution par l'algorithme circulaire en cours...\n");
-			start = time(NULL);
+			start = clock();
 			algorithme_circulaire(&G, &S, graine);
-			duree = difftime(time(NULL), start);
+			duree = (double)(clock() - start) / CLOCKS_PER_SEC;
 			break;
 
 		case 3:
 			printf("Solution par l'algorithme circulaire par couleurs en cours...\n");
-			start = time(NULL);
+			start = clock();
 			algorithme_couleur(&G, &S, graine);
-			duree = difftime(time(NULL), start);
+			duree = (double)(clock() - start) / CLOCKS_PER_SEC;
 			break;
 			
 		case 4:
 			printf("Solution par l'algorithme AVL en cours...\n");
-			start = time(NULL);
+			start = clock();
 			algorithme_AVL(&G, &S, graine);
-			duree = difftime(time(NULL), start);
+			duree = (double)(clock() - start) / CLOCKS_PER_SEC;
 			break;
 		
 	}
