@@ -203,27 +203,37 @@ void affiche_infixe(AVL* arbre){
 int recherche_plus_proche(AVL* arbre, int c){
 	int plus_proche;
 	
+	/* Cas de base, la valeur n'est pas dans l'arbre. */
 	if(arbre == NULL){
 		return -1;
 	}
+	
+	/* Cas de base, la valeur est dans l'arbre. */
 	if(arbre->val == c){
 		return c;
 	}
+	
+	/* Recherche dichotomique récursive. */
 	if(arbre->val > c){
 		plus_proche = recherche_plus_proche(arbre->fg, c);
 	}else{
 		plus_proche = recherche_plus_proche(arbre->fd, c);
 	}
 	
+	/* Si le fils est NULL, alors la plus proche est la racine. */
 	if(plus_proche == -1){
 		return arbre->val;
 	}
+	
+	/* Détermine si le plus proche est la racine ou la valeur de retour de l'appel récursif. */
 	if(abs(plus_proche - c) < abs(arbre->val - c)){
 		return plus_proche;
 	}
 	if(abs(plus_proche - c) > abs(arbre->val - c)){
 		return arbre->val;
 	}
+	
+	/* En cas d'égalité, la fonction retourne la plus petite valeur des deux. */
 	if(arbre->val < plus_proche){
 		return arbre->val;
 	}

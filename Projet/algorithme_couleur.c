@@ -151,11 +151,11 @@ void algorithme_couleur(Grille *G, Solution *S, int graine){
 			RechercheCaseCirculaire_nn(G, G->ir, G->jr, &k, &l);		
 		}
 				
-		PlusCourtChemin(S, G->ir, G->jr, k, l);
+		//PlusCourtChemin(S, G->ir, G->jr, k, l);
 		changement_case(G, k, l);
 		swap_case(G);
-		Ajout_action(S, 'S');
+		//Ajout_action(S, 'S');
 		//printf("%d, %d\n", G->ir, G->jr);
 	}
-	Ecriture_Disque(G->m, G->n, G->nbcoul, graine, S);
+	//Ecriture_Disque(G->m, G->n, G->nbcoul, graine, S);
 }
