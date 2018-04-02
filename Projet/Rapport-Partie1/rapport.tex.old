@@ -18,8 +18,6 @@
 % PACOTES DE IMAGENS                                                                %
 %-----------------------------------------------------------------------------------%
 \usepackage[pdftex]{graphicx}
-\pdfsuppresswarningpagegroup=1 % A warning issued when several PDF images are
-% imported in the same page. Mostly harmless, can be almost always supressed.
 %\usepackage[pstarrows]{pict2e} % Amplia as funcionalidades do ambiente picture
 \usepackage{tikz}
 \usetikzlibrary{shapes, arrows, arrows.meta}
@@ -252,7 +250,7 @@ Ce projet s'intéresse à la recherche automatique des solutions pour le jeu du 
 
 L'implémentation du jeu a été fournie pour ce projet. L'objectif de cette première partie du projet est de donner quelques implémentations différentes d'un algorithme pour résoudre le problème, appelé algorithme ``au plus proche'', et comparer leurs complexités et vitesses d'exécution.
 
-L'algorithme ``au plus proche'' consiste à, tant qu'il reste une case non-noire, vérifier si le robot porte une pièce ou pas. S'il porte une pièce, le robot se déplace à la case la plus proche avec la même couleur de fond que la pièce et la dépose. Sinon, il cherche la plus proche case non-noire avec une pièce et se déplace pour la prendre. En cas d'égalité de distance, la priorité est donnée à la case en haut, à gauche. Les implémentations diffèrent par la méthode utilisée pour trouver la case la plus proche où se déplacer.
+L'algorithme ``au plus proche'' consiste à, tant qu'il reste une case non-noire, vérifier si le robot porte une pièce ou pas. S'il porte une pièce, le robot se déplace à la case la plus proche avec la même couleur de fond que la pièce et la dépose. Sinon, il cherche la plus proche case non-noire avec une pièce et se déplace pour la prendre. En cas d'égalité de distance, la priorité est donnée à la case en haut, à gauche. Les implémentations différent par la méthode utilisée pour trouver la case la plus proche où se déplacer.
 
 Il est intéressant à noter que cet algorithme ne donne pas forcément la solution avec le nombre minimal de déplacements. En effet, considérons l'exemple de la grille de la Figure \ref{FigExpl}. On note les déplacements du robot vers le haut, le bas, la gauche et la droite respectivement par \texttt{U}, \texttt{D}, \texttt{L} et \texttt{R}, et l'échange de pièce du robot par \texttt{S}. Si le robot se trouve initialement à la case en haut à gauche, une application de l'algorithme ``au plus proche'' donne la solution suivante, à 10 déplacements :
 
@@ -289,25 +287,22 @@ On remarque par cet exemple que chercher à chaque fois la case la plus proche a
 \end{figure}
 
 \section{Version naïve}
-\label{SecNaive}
 
 La première méthode utilisée pour chercher la case la plus proche est celle dite \emph{naïve}, qui consiste à parcourir, à chaque fois, toute la grille du jeu à partir de la case $(0, 0)$ afin de trouver la case la plus proche à la case où le robot se trouve. On a pour cela implémenté plusieurs fonctions utiles dans une bibliothèque de fonctions : la fonction \verb@PlusCourtChemin@ de la Question 1.2 et des petites fonctions qui aident à rendre le code plus lisible. La plupart d'entre elles retourne des booléens utilisés pour décider où le robot va se déplacer. En particulier, on a implémenté des fonctions répondant à la Question 1.3.
 
 On a implémenté deux fonctions \verb@RechercheCaseNaif_c@ et \verb@RechercheCaseNaif_nn@ qui retournent les coordonnées $(k, l)$, respectivement, de la case la plus proche d'une case $(i, j)$ donnée et dont la couleur de fond est une couleur $c$ donnée, et de la case la plus proche de $(i, j)$ non-noire et comportant une pièce. On a utilisé ces deux fonctions et les fonctions données pour implémenter une résolution par l'algorithme ``au plus proche''. On a aussi crée un programme principal \verb@Solveur@ qui prend en argument les dimensions de la grille, le nombre de couleurs, la graine pour le générateur aléatoire et le numéro du solveur à utiliser (1 pour le solveur naïf, d'autres numéros ayant été ajoutés pour les solveurs implémentés dans les sections suivantes) et qui enregistre la solution trouvée dans un fichier.
 
-Pour toutes les simulations de temps d'exécution de ce rapport, nous avons désactivé l'enregistrement de la solution (après avoir vérifié que la solution enregistrée était bonne) afin de mesurer uniquement le temps de calcul et ne pas avoir des structures de solution occupant trop de mémoire pour les dimensions importantes de grille. Le nombre de couleurs a été choisi comme étant égal à $10$ pour toutes les simulations, et le temps d'exécution donné dans les Tables \ref{TempsNaive} à \ref{TempsAVL} correspond à une moyenne sur 4 simulations pour chaque dimension de la grille.
-
-Expérimentalement, en utilisant la fonction \verb@clock@ de la bibliothèque \verb@time.h@, on a trouvé les temps d'exécution de la Table \ref{TempsNaive}. On remarque que le temps moyen d'exécution dépasse les $30 s$ pour des grilles de taille d'environ $270 \times 270$.
+Expérimentalement, en utilisant la fonction \verb@clock@ de la bibliothèque \verb@time.h@, on a trouvé les temps d'exécution de la Table \ref{TempsNaive}. Le nombre de couleurs a été choisi comme étant approximativement égal à $0,1\%$ du nombre total de cases de la grille et la simulation a été répétée 4 fois pour chaque dimension de la grille, le temps donné dans le tableau étant le temps moyen. On remarque que le temps moyen d'exécution dépasse les $30 s$ pour des grilles de taille entre $260 \times 260$ et $270 \times 270$.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{cc}
+\begin{tabular}{ccc}
 \hline\hline
-Dimensions de la grille & Temps moyen d'exécution \tabularnewline
+Dimensions de la grille & Nombre de couleurs & Temps moyen d'exécution \tabularnewline
 \hline
-$250 \times 250$ & $22,62 s$ \tabularnewline
-$260 \times 260$ & $26,89 s$ \tabularnewline
-$270 \times 270$ & $30,37 s$ \tabularnewline
+$250 \times 250$ & $63$ & $22,94 s$ \tabularnewline
+$260 \times 260$ & $68$ & $29,29 s$ \tabularnewline
+$270 \times 270$ & $73$ & $31,36 s$ \tabularnewline
 \hline\hline
 \end{tabular}
 \caption{Temps d'exécution de la version naïve.}
@@ -318,33 +313,33 @@ $270 \times 270$ & $30,37 s$ \tabularnewline
 
 La méthode circulaire de recherche de la case $(k, l)$ la plus proche d'une case $(i, j)$ donnée consiste à démarrer la recherche depuis $(i, j)$ et chercher de façon circulaire, en augmentant la distance de $1$ à chaque fois jusqu'à ce qu'une case avec la propriété voulue soit trouvée. Par rapport à la version naïve, l'avantage est que l'on peut arrêter la recherche dès qu'une première case est trouvée, sans avoir besoin de parcourir toute la grille.
 
-On a implémenté les deux fonctions \verb@RechercheCaseCirculaire_c@ et \verb@Recherche@\allowbreak\verb@CaseCirculaire_nn@, analogues à celles implémentées pour la version naïve, et un solveur les utilisant. Les résultats expérimentaux de temps moyens d'exécution sur 4 simulations sont données dans la Table \ref{TempsCirculaire}, qui les compare avec les résultats de la Table \ref{TempsNaive}. On remarque que le temps d'exécution moyen de la version circulaire est plus petit, car la recherche s'arrête dès qu'une case a été trouvée. On peut donc résoudre des grilles de dimension jusqu'à environ $330 \times 330$ en moins de $30 s$.
+On a implémenté les deux fonctions \verb@RechercheCaseCirculaire_c@ et \verb@Recherche@\allowbreak\verb@CaseCirculaire_nn@, analogues à celles implémentées pour la version naïve, et un solveur les utilisant. Les résultats expérimentaux de temps moyens d'exécution sur 4 simulations sont données dans la Table \ref{TempsCirculaire}, qui les compare avec les résultats de la Table \ref{TempsNaive}. Comme pour la méthode naïve, le nombre de couleurs a été choisi comme étant approximativement égal à $0,1\%$ du nombre total de cases de la grille et la moyenne de temps est faite sur 4 simulations. On remarque que le temps d'exécution moyen de la version circulaire est plus petit, car la recherche s'arrête dès qu'une case a été trouvée. On peut donc résoudre des grilles de dimension jusqu'à environ $310 \times 310$ en moins de $30 s$.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{>{\centering} m{0.3\textwidth} >{\centering} m{0.3\textwidth} >{\centering} m{0.3\textwidth}}
+\begin{tabular}{>{\centering} m{0.2\textwidth} >{\centering} m{0.2\textwidth} >{\centering} m{0.2\textwidth} >{\centering} m{0.2\textwidth}}
 \hline\hline
-Dimensions de la grille & Temps moyen d'exécution, version naïve & Temps moyen d'exécution, version circulaire \tabularnewline
+Dimensions de la grille & Nombre de couleurs & Temps moyen d'exécution, version naïve & Temps moyen d'exécution, version circulaire \tabularnewline
 \hline
-$250 \times 250$ & $22,62 s$ & $10,02 s$ \tabularnewline
-$260 \times 260$ & $26,89 s$ & $10,64 s$ \tabularnewline
-$270 \times 270$ & $30,37 s$ & $12,73 s$ \tabularnewline
-$320 \times 320$ &           & $26,88 s$ \tabularnewline
-$330 \times 330$ &           & $30,94 s$ \tabularnewline
-$340 \times 340$ &           & $34,98 s$ \tabularnewline
+$250 \times 250$ &  $63$ & $22,94 s$ & $12,38 s$ \tabularnewline
+$260 \times 260$ &  $68$ & $29,29 s$ & $13,61 s$ \tabularnewline
+$270 \times 270$ &  $73$ & $31,36 s$ & $17,34 s$ \tabularnewline
+$300 \times 300$ &  $90$ &           & $26,89 s$ \tabularnewline
+$310 \times 310$ &  $96$ &           & $29,78 s$ \tabularnewline
+$320 \times 320$ & $102$ &           & $32,30 s$ \tabularnewline
 \hline\hline
 \end{tabular}
 \caption{Temps d'exécution des versions naïve et circulaire.}
 \label{TempsCirculaire}
 \end{table}
 
-On a aussi fait des tests en augmentant le nombre de couleurs pour une taille fixé de la grille. On observe que, comme attendu, le temps d'exécution de la méthode naïve reste constant, car il parcourt toujours toutes les cases de la grille pour une recherche. Néanmoins, le temps d'exécution de la méthode circulaire augmente, car, avec plus de couleurs, il lui faut en moyenne chercher plus loin pour trouver une case.
+On a fait des tests en augmentant le nombre de couleurs pour une taille fixé de la grille. On observe que, comme attendu, le temps d'exécution de la méthode naïve reste constant, car il parcourt toujours toutes les cases de la grille pour une recherche. Néanmoins, le temps d'exécution de la méthode circulaire augmente, car, avec plus de couleurs, il lui faut en moyenne chercher plus loin pour trouver une case.
 
 Pour la complexité de la méthode naïve dans le cas d'une grille $n \times n$, la recherche parcourt toujours toutes les $n^2$ cases de la grille, et est ainsi effectuée en $\Theta(n^2)$. Pour résoudre la grille, il faut effectuer cette recherche une fois pour chaque pièce de la grille, soit $n^2$ pièces, donc la complexité est en $\Theta(n^4)$.
 
 Pour la méthode circulaire, le pire cas correspond à lorsque la case recherchée est le plus éloignée possible de la case courante, auquel cas il faut parcourir toutes les $n^2$ cases de la grille, mais elle peut être plus courte, lorsque par exemple la case recherchée est voisine de la case courante. On a donc une complexité de $O(n^2)$. Comme pour la méthode naïve, il faut effectuer la recherche une fois pour chacune des $n^2$ pièces, donnant donc une complexité en $O(n^4)$.
 
-Les expérimentations permettent de retrouver cette évaluation de la complexité. Pour la méthode naïve, en utilisant la première et la troisième lignes du tableau, on obtient $\frac{31,36 s}{22,94 s} \approx 1,34$ et $\left(\frac{270}{250}\right)^4 \approx 1,36$, ce qui valide la complexité en $\Theta(n^4)$. De même, pour la méthode circulaire, en utilisant la première et la dernière lignes du tableau, on obtient $\frac{34,98 s}{10,02 s} \approx 3,49$ et $\left(\frac{340}{250}\right)^4 \approx 3,42$, ce qui valide également le calcul théorique de la complexité en $O(n^4)$.
+Les expérimentations permettent de retrouver cette évaluation de la complexité. Pour la méthode naïve, en utilisant la première et la troisième lignes du tableau, on obtient $\frac{31,36 s}{22,94 s} \approx 1,37$ et $\left(\frac{270}{250}\right)^4 \approx 1,36$, ce qui valide la complexité en $\Theta(n^4)$. De même, pour la méthode circulaire, en utilisant la première et la dernière lignes du tableau, on obtient $\frac{32,30 s}{12,38 s} \approx 2,61$ et $\left(\frac{320}{250}\right)^4 \approx 2,68$, ce qui valide également le calcul théorique de la complexité en $O(n^4)$.
 
 \section{Version par couleur}
 
@@ -352,33 +347,67 @@ La méthode par couleur consiste à créer un tableau de dimension 1 et longueur
 
 On a commencé par implémenter une bibliothèque de fonctions pour la manipulation de listes chainées, avec des fonctions d'initialisation, insertion en queue en $\Theta(1)$, suppression en $\Theta(1)$, affichage, etc. Ensuite, on a implémenté la fonction \verb@LDC@\allowbreak\verb@rechercherPlusProcheCase@ de recherche de case plus proche d'une case $(i, j)$ passée en argument. Cette fonction parcourt toute la liste chainée passée en argument pour trouver la case la plus proche.
 
-En utilisant cette fonction et la fonction \verb@Recherche@\allowbreak\verb@CaseCirculaire_nn@ de la partie précédente, on a implémenté un nouveau solveur pour résoudre le robot trieur. Les résultats expérimentaux des temps moyen d'exécution sont donnés dans la Table \ref{TempsCouleur}. On remarque que le temps d'exécution moyen est beaucoup plus petit que pour les deux autres versions, étant de l'ordre de $30 s$ pour des grilles de taille d'environ $590 \times 590$.
+En utilisant cette fonction et la fonction \verb@Recherche@\allowbreak\verb@CaseCirculaire_nn@ de la partie précédente, on a implémenté un nouveau solveur pour résoudre le robot trieur. Les résultats expérimentaux des temps moyen d'exécution sont donnés dans la Table \ref{TempsCouleurProp1}.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{>{\centering} m{0.2\textwidth} >{\centering} m{0.2\textwidth} >{\centering} m{0.2\textwidth} >{\centering} m{0.2\textwidth}}
+\begin{tabular}{>{\centering} m{0.17\textwidth} >{\centering} m{0.17\textwidth} >{\centering} m{0.17\textwidth} >{\centering} m{0.17\textwidth} >{\centering} m{0.17\textwidth}}
 \hline\hline
-Dimensions de la grille & Temps moyen, version naïve & Temps moyen, version circulaire & Temps moyen, version par couleur \tabularnewline
+Dimensions de la grille & Nombre de couleurs & Temps moyen, version naïve & Temps moyen, version circulaire & Temps moyen, version par couleur \tabularnewline
 \hline
-$250 \times 250$ & $22,62 s$ & $10,02 s$ & $1,055 s$ \tabularnewline
-$260 \times 260$ & $26,89 s$ & $10,64 s$ & $1,176 s$ \tabularnewline
-$270 \times 270$ & $30,37 s$ & $12,73 s$ & $1,441 s$ \tabularnewline
-$320 \times 320$ &           & $26,88 s$ & $2,984 s$ \tabularnewline
-$330 \times 330$ &           & $30,94 s$ & $3,113 s$ \tabularnewline
-$340 \times 340$ &           & $34,98 s$ & $3,313 s$ \tabularnewline
-$580 \times 580$ &           &           & $28,71 s$ \tabularnewline
-$590 \times 590$ &           &           & $30,48 s$ \tabularnewline
-$600 \times 600$ &           &           & $33,04 s$ \tabularnewline
+$250 \times 250$ &  $63$ & $22,94 s$ & $12,38 s$ & $0,9188 s$ \tabularnewline
+$260 \times 260$ &  $68$ & $29,29 s$ & $13,61 s$ & $1,052 s$  \tabularnewline
+$270 \times 270$ &  $73$ & $31,36 s$ & $17,34 s$ & $1,159 s$  \tabularnewline
+$300 \times 300$ &  $90$ &           & $26,89 s$ & $1,564 s$  \tabularnewline
+$310 \times 310$ &  $96$ &           & $29,78 s$ & $1,761 s$  \tabularnewline
+$320 \times 320$ & $102$ &           & $32,30 s$ & $1,905 s$  \tabularnewline
 \hline\hline
 \end{tabular}
 \caption{Temps d'exécution des versions naïve, circulaire et par couleur.}
-\label{TempsCouleur}
+\label{TempsCouleurProp1}
 \end{table}
 
-Étudions la complexité de la méthode par couleur en fonction de $n$ et du nombre maximal de pièces d'une même couleur $\alpha$. Pour initialiser le tableau de listes chainées, il faut parcourir la grille une fois, la complexité de cette étape étant donc en $\Theta(n^2)$. Pour rechercher la case la plus proche de couleur $c$, il faut parcourir une fois la liste chainée de la couleur correspondante, et alors la complexité est $\Theta(\ell_c)$, où $\ell_c$ est la longueur de cette liste. Comme $\alpha$ est la taille de la plus grande liste, on obtient ainsi une complexité en $O(\alpha)$ pour la recherche. Comme il faut répéter la recherche pour les $n^2$ pièces, en prenant en compte aussi l'initialisation, la complexité totale est en $\Theta(n^2) + O(n^2 \alpha) = O(n^2 \alpha)$. La taille $\alpha$ de la plus grande liste est bornée par le nombre de pièces $n^2$ et ainsi, en fonction de $n$, on a une complexité en $O(n^4)$.
+On remarque que le temps d'exécution moyen est beaucoup plus petit que pour les deux autres versions. Pour les résultats donnés dans la suite, on a modifié légèrement le code pour ne pas sauvegarder la solution car la structure utilisée pour la sauvegarde devient vite trop grande pour la mémoire de l'ordinateur, rendant difficile la simulation des grilles de dimension de l'ordre de $1000 \times 1000$ ou supérieure. Sans la sauvegarde, le temps moyen d'exécution de la version par couleur est divisé par environ 4.
+
+La Table \ref{TempsCouleurProp2} donne les temps moyen d'exécution pour des grandes tailles de grille, avec un nombre de couleurs correspondant toujours à $0,1\%$ du nombre de cases de la grille. Le temps d'exécution sera donc d'ordre de $30 s$ pour des grilles de taille entre $2500 \times 2500$ et $2600 \times 2600$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{>{\centering} m{0.3\textwidth} >{\centering} m{0.3\textwidth} >{\centering} m{0.3\textwidth}}
+\hline\hline
+Dimensions de la grille & Nombre de couleurs & Temps moyen, version par couleur \tabularnewline
+\hline
+$2000 \times 2000$ & $4000$ & $20,18 s$ \tabularnewline
+$2500 \times 2500$ & $6250$ & $29,09 s$ \tabularnewline
+$2600 \times 2600$ & $6760$ & $31,15 s$ \tabularnewline
+\hline\hline
+\end{tabular}
+\caption{Temps d'exécution de la version par couleur sans sauvegarde de la solution.}
+\label{TempsCouleurProp2}
+\end{table}
+
+On a également testé le temps moyen d'exécution avec une quantité fixe de $10$ couleurs, sans changer son nombre en fonction du nombre de cases de la grille. Dans ce cas, le temps d'exécution observé est beaucoup plus grand, comme montre la Table \ref{TempsCouleurCst}. Avec $10$ couleurs, le temps d'exécution est de l'ordre de $30 s$ pour des grilles de taille d'environ $590 \times 590$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{>{\centering} m{0.3\textwidth} >{\centering} m{0.3\textwidth} >{\centering} m{0.3\textwidth}}
+\hline\hline
+Dimensions de la grille & Nombre de couleurs & Temps moyen, version par couleur \tabularnewline
+\hline
+$580 \times 580$ & $10$ & $28,71 s$ \tabularnewline
+$590 \times 590$ & $10$ & $30,48 s$ \tabularnewline
+$600 \times 600$ & $10$ & $33,04 s$ \tabularnewline
+\hline\hline
+\end{tabular}
+\caption{Temps d'exécution de la version par couleur sans sauvegarde de la solution.}
+\label{TempsCouleurCst}
+\end{table}
+
+Pour expliquer cette divergence entre les Tables \ref{TempsCouleurProp2} et \ref{TempsCouleurCst}, on étudie la complexité théorique de cette méthode. Pour initialiser le tableau de listes chainées, il faut parcourir la grille une fois, la complexité de cette étape étant donc en $\Theta(n^2)$. Pour rechercher la case la plus proche de couleur $c$, il faut parcourir une fois la liste chainée de la couleur correspondante, et alors la complexité est $\Theta(\ell_c)$, où $\ell_c$ est la longueur de cette liste. Avec le paramètre $\alpha$ qui donne le nombre maximal de pièces d'une même couleur, et donc la taille de la plus grande liste, on obtient ainsi une complexité en $O(\alpha)$ pour la recherche. Comme il faut répéter la recherche pour les $n^2$ pièces, en prenant en compte aussi l'initialisation, la complexité totale est en $\Theta(n^2) + O(n^2 \alpha) = O(n^2 \alpha)$.
+
+Dans le cas où l'on augmente le nombre de couleurs de façon proportionnelle à la quantité totale de cases, on a un nombre de couleurs de $c n^2$ ($c = 0,1\%$ dans les simulations ci-dessus). La longueur moyenne d'une liste chainée sera donc $\frac{n^2}{c n^2} = \frac{1}{c}$. On s'attend donc à une plus grande liste de taille de l'ordre $\frac{1}{c}$, qui est indépendant de $n$. Donc, dans ce cas, la complexité totale sera en $O(n^2)$. Dans le cas où le nombre de couleurs est fixe et égal à $c$, $\alpha$ sera de l'ordre de $\frac{n^2}{c}$, alors la complexité totale sera en $O(n^4)$. Cela explique donc pourquoi le cas avec nombre de couleurs proportionnel au nombre de cases est beaucoup plus rapide.
 
 \section{Version par AVL}
-\label{SecAVL}
 
 Dans la méthode par AVL, on utilise des arbres binaires de recherche équilibrées du type AVL pour faciliter la recherche de la case la plus proche avec une couleur donnée. Plus précisément, on crée un tableau \verb@M@ d'arbres AVL de dimension \verb@m@ $\times$ \verb@nb_coul@, où \verb@m@ est le nombre de lignes de la grille et \verb@nb_coul@ le nombre de couleurs utilisées dans la grille. L'arbre \verb@M[i][c]@ contient les indices de colonne \verb@j@ de toutes les cases de la grille dans la ligne \verb@i@ et de couleur de fond \verb@c@.
 
@@ -388,47 +417,35 @@ On a également implémenté une fonction de recherche qui, étant donné un arb
 
 Pour utiliser cette structure dans l'implémentation de l'algorithme ``au plus proche'', on a écrit une fonction de création du tableau d'arbres AVL \verb@M@ à partir d'une grille. Cette fonction parcourt toute la grille en insérant, pour les cases non-noires, son indice de colonne dans l'arbre correspondant à sa couleur de fond. On a aussi décidé de rajouter une dernière colonne à \verb@M@ contenant, pour chaque ligne, un arbre avec les indices de toutes les cases non-noires avec une pièce de la ligne, afin de pouvoir implémenter efficacement la recherche de cases non-noires.
 
-On a en plus implémenté des fonctions de recherche de case par couleur et de recherche de cases non-noires avec une pièce afin d'implémenter l'algorithme ``au plus proche'' par AVL. Pour les recherches de la case la plus proche, on parcourt les lignes du tableau \verb@M@ et, pour chaque ligne, on recherche la colonne la plus proche dans l'arbre AVL de la couleur correspondante, gardant à la fin la distance minimale par rapport à toutes les lignes. Le test du temps moyen d'exécution est donné dans la Table \ref{TempsAVL}.
+On a en plus implémenté des fonctions de recherche de case par couleur et de recherche de cases non-noires avec une pièce afin d'implémenter l'algorithme ``au plus proche'' par AVL. Pour les recherches de la case la plus proche, on parcourt les lignes du tableau \verb@M@ et, pour chaque ligne, on recherche la colonne la plus proche dans l'arbre AVL de la couleur correspondante, gardant à la fin la distance minimale par rapport à toutes les lignes.
+
+Le test du temps moyen d'exécution avec une quantité de couleurs égal à $0,1\%$ du nombre d'éléments de la grille et avec la quantité fixe de $10$ couleurs est donné dans la Table \ref{TempsAVL}.
 
 \begin{table}
 \centering
-\begin{tabular}{>{\centering} m{0.17\textwidth} >{\centering} m{0.17\textwidth} >{\centering} m{0.17\textwidth} >{\centering} m{0.17\textwidth} >{\centering} m{0.17\textwidth}}
+\begin{tabular}{>{\centering} m{0.3\textwidth} >{\centering} m{0.3\textwidth} >{\centering} m{0.3\textwidth}}
 \hline\hline
-Dimensions de la grille & Version naïve & Version circulaire & Version par couleur & Version par AVL \tabularnewline
+Dimensions de la grille & Nombre de couleurs & Temps moyen, version par AVL \tabularnewline
 \hline
-$250 \times 250$   & $22,62 s$ & $10,02 s$ & $1,055 s$ & $0,3672 s$ \tabularnewline
-$260 \times 260$   & $26,89 s$ & $10,64 s$ & $1,176 s$ & $0,4063 s$ \tabularnewline
-$270 \times 270$   & $30,37 s$ & $12,73 s$ & $1,441 s$ & $0,4961 s$ \tabularnewline
-$320 \times 320$   &           & $26,88 s$ & $2,984 s$ & $0,7617 s$ \tabularnewline
-$330 \times 330$   &           & $30,94 s$ & $3,113 s$ & $0,8203 s$ \tabularnewline
-$340 \times 340$   &           & $34,98 s$ & $3,313 s$ & $0,9023 s$ \tabularnewline
-$580 \times 580$   &           &           & $28,71 s$ & $4,629 s$  \tabularnewline
-$590 \times 590$   &           &           & $30,48 s$ & $4,965 s$  \tabularnewline
-$600 \times 600$   &           &           & $33,04 s$ & $5,281 s$  \tabularnewline
-$1000 \times 1000$ &           &           &           & $26,95 s$  \tabularnewline
-$1050 \times 1050$ &           &           &           & $32,41 s$  \tabularnewline
-$1100 \times 1100$ &           &           &           & $38,50 s$  \tabularnewline
+$1000 \times 1000$ & $1000$ & $24,47 s$ \tabularnewline
+$1050 \times 1050$ & $1103$ & $28,39 s$ \tabularnewline
+$1100 \times 1100$ & $1210$ & $33,11 s$ \tabularnewline
+\hline
+$1000 \times 1000$ & $10$ & $26,95 s$ \tabularnewline
+$1050 \times 1050$ & $10$ & $32,41 s$ \tabularnewline
+$1100 \times 1100$ & $10$ & $38,50 s$ \tabularnewline
 \hline\hline
 \end{tabular}
-\caption{Temps d'exécution des versions naïve, circulaire, par couleur et par AVL.}
+\caption{Temps d'exécution de la version par AVL sans sauvegarde de la solution.}
 \label{TempsAVL}
 \end{table}
 
-En comparant avec la méthode par couleur, on remarque que la méthode par AVL est plus rapide. La dimension de la grille qui donne un temps moyen d'exécution de $30 s$ est entre $1000 \times 1000$ et $1050 \times 1050$.
+En comparant avec la méthode par couleur, dont les résultats sont dans les Tables \ref{TempsCouleurProp2} et \ref{TempsCouleurCst}, on remarque que, avec une quantité de couleurs égale à environ $0,1\%$ de la quantité de cases de la grille, la dimension de la grille qui donne un temps moyen d'exécution de $30 s$ est entre $1050 \times 1050$ et $1100 \times 1100$ pour la méthode par AVL, ce qui est plus petit que la dimension correspondante pour la méthode par couleur et indique donc un temps d'exécution plus important. Avec un nombre fixe de $10$ couleurs, la dimension de la grille qui donne un temps moyen d'exécution de $30 s$ est entre $1000 \times 1000$ et $1050 \times 1050$ pour la méthode par AVL, plus grand que la dimension correspondante pour la méthode par couleur, ce qui indique un temps d'exécution plus rapide. On remarque également que le temps d'exécution décroit un peu lorsque le nombre de couleurs augmente pour une même dimension de la grille.
 
-La complexité de la création du tableau d'AVL est en $O(n^2 \log(\beta))$, où $\beta$ est le nom\-bre maximal d'éléments dans un arbre AVL du tableau. Il faut parcourir les $n^2$ éléments de la grille et les insérer dans un AVL, l'insertion étant faite, comme vu précédemment, en $O(\log(\beta))$. La complexité de la recherche de la case la plus proche par AVL est en $O(n \log(\beta))$. En effet, on fait une boucle sur les $n$ lignes du tableau \verb@M@ et, pour chaque ligne, on fait une recherche uniquement sur l'arbre de la couleur correspondante, qui se fait en $O(\log(\beta))$. Comme cette recherche est répétée pour les $n^2$ pièces de la grille, on a une complexité totale en $O(n^2 \log(\beta)) + O(n^3 \log(\beta)) = O(n^3 \log(\beta))$. Le nombre d'éléments $\beta$ du plus grand AVL est borné par le nombre de pièces $n$ d'une ligne et ainsi, en fonction de $n$, on a une complexité en $O(n^3 \log(n))$.
+La complexité de la création du tableau d'AVL est en $O(n^2 \log(\beta))$, où $\beta$ est le nom\-bre maximal d'éléments dans un arbre AVL du tableau. En effet, il faut parcourir les $n^2$ éléments de la grille et les insérer dans un AVL, l'insertion étant faite, comme vu précédemment, en $O(\log(\beta))$. La complexité de la recherche de la case la plus proche par AVL est en $O(n \log(\beta))$. En effet, on fait une boucle sur les $n$ lignes du tableau \verb@M@ et, pour chaque ligne, on fait une recherche uniquement sur l'arbre de la couleur correspondante, qui, comme vu précédemment, se fait en $O(\log(\beta))$. Comme cette recherche est répétée pour les $n^2$ pièces de la grille, on a une complexité totale en $O(n^2 \log(\beta)) + O(n^3 \log(\beta)) = O(n^3 \log(\beta))$.
 
-La Figure \ref{FigGraphes} donne les graphes des temps d'exécution de l'algorithme ``au plus proche'' pour les quatre méthodes précédentes. Pour chaque dimension $n \times n$ de la grille, les simulations ont été répétées 10 fois, le temps donné dans le graphique étant le temps moyen d'exécution. Comme montré par les calculs théoriques de complexité des questions précédentes, la méthode naïve est en $\Theta(n^4)$, les méthodes circulaire et par couleur sont en $O(n^4)$, et la méthode par AVL est plus rapide, en $O(n^3 \log(n))$. Parmi les méthodes qui ont la même complexité en $n^4$, les améliorations des méthodes circulaire et par couleur permettent de réduire le temps d'exécution par rapport à la méthode naïve.
+Dans le cas où la quantité de couleurs est proportionnelle au nombre de cases de la grille et vaut $c n^2$, le nombre moyen de cases d'une même couleur dans une ligne est $\frac{n}{c n^2} = \frac{1}{c n}$, et ainsi la complexité totale de la méthode par AVL est en $O(n^3 \log(1/n)) = O(n^3)$. Cette complexité est supérieure à celle de la version par couleur, ce qui explique pourquoi les $30 s$ d'exécution sont obtenues pour des dimensions de la grille plus petites que dans la version par couleur.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{Temps.pdf}
-\caption{Temps d'exécution des quatre méthodes différentes.}
-\label{FigGraphes}
-\end{figure}
-
-\newpage
-
-\mbox{}
+Dans le cas où la quantité de couleurs est constante et vaut $c$, le nombre moyen de cases d'une même couleur dans une ligne est $\frac{n}{c}$, ce qui donne une complexité totale en $O(n^3 \log(n))$ pour la méthode par AVL. Cette complexité est maintenant inférieure à celle de la version par couleur, ce qui explique pourquoi les $30 s$ d'exécution sont obtenues pour des dimensions de la grille plus grandes que dans la version par couleur.
 
 \end{document}
