@@ -81,10 +81,10 @@ void algorithme_AVL(Grille *G, Solution *S, int graine){
 			RechercheCaseAVL_nn(G, G->ir, G->jr, &k, &l, M);	
 		}
 				
-		//PlusCourtChemin(S, G->ir, G->jr, k, l);
+		PlusCourtChemin(S, G->ir, G->jr, k, l);
 		changement_case(G, k, l);
 		swap_case(G);
-		//Ajout_action(S, 'S');
+		Ajout_action(S, 'S');
 		if(EstCaseNoire(G, k, l)){
 			M[k][CouleurFond(G, k, l)] = supprimer_noeud(M[k][CouleurFond(G, k, l)], l);
 			M[k][G->nbcoul] = supprimer_noeud(M[k][G->nbcoul], l);
@@ -95,7 +95,7 @@ void algorithme_AVL(Grille *G, Solution *S, int graine){
 		}
 			
 	}
-	//Ecriture_Disque(G->m, G->n, G->nbcoul, graine, S);
+	Ecriture_Disque(G->m, G->n, G->nbcoul, graine, S);
 }
 
 
