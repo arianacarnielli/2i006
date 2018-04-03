@@ -134,7 +134,6 @@ AVL* rotation_gauche(AVL* arbre){
 	return arbre;
 }
 
-
 AVL* supprimer_noeud_max(AVL* arbre, int* max){
 	if(arbre){
 		AVL* racine;

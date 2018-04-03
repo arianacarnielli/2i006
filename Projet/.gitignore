@@ -1,3 +1,10 @@
 *.o
 *.exe
 *.sol
+*.old
+*.tmp
+*.aux
+*.out
+*.log
+*.synctex
+*.tps
