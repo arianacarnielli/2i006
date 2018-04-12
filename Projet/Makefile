@@ -48,5 +48,20 @@ Solveur.o: Solveur.c algorithme_naif.h algorithme_circulaire.h algorithme_couleu
 Solveur: Solveur.o algorithme_naif.o algorithme_circulaire.o algorithme_couleur.o algorithme_AVL.o bibliotheque.o AVL.o Grille.o Solution.o entree_sortie.o
 	gcc -o Solveur Solveur.o algorithme_naif.o algorithme_circulaire.o algorithme_couleur.o algorithme_AVL.o bibliotheque.o AVL.o Grille.o Solution.o entree_sortie.o
 	
+Graphe.o: Graphe.c Graphe.h ListeDC.h
+	gcc -c Graphe.c
+	
+ListeDC.o: ListeDC.c ListeDC.h
+	gcc -c ListeDC.c
+	
+circuit.o: circuit.c Graphe.h ListeDC.h circuit.h
+	gcc -c circuit.c
+	
+main_partie_2.o: main_partie_2.c Graphe.h ListeDC.h Grille.h circuit.h
+	gcc -c main_partie_2.c
+	
+main_partie_2: main_partie_2.o Graphe.o ListeDC.o Grille.o circuit.o
+	gcc -o main_partie_2 main_partie_2.o Graphe.o ListeDC.o Grille.o circuit.o
+	
 clean:
 	rm -f *.o Game_SortingRobot Checker_SortingRobot Solveur
