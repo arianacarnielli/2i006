@@ -139,6 +139,21 @@ void LcircuitInsererEnFin(Lcircuit* l_c, Cell_circuit* cc){
 void Affiche_Lcircuit(Lcircuit* l_c){
 	Cell_circuit* temp;
 	for(temp = l_c->premier; temp; temp = temp->suiv){
+		printf("jmin : %d, jmax : %d\n", temp->jmin, temp->jmax);
 		LDCafficher(&(temp->L));	
+	}
+}
+
+void CalculJminJmax(Lcircuit *l_c){
+	Cell_circuit* temp;
+	CelluleLDC* temp2;
+	for(temp = l_c->premier; temp!= NULL; temp = temp->suiv){
+		temp->jmin = (temp->L).premier->j;
+		temp->jmax = (temp->L).premier->j;
+		for (temp2 = (temp->L).premier; temp2 != NULL; temp2 = temp2->suiv){
+			if(temp->jmax < temp2->j){
+				temp->jmax = temp2->j;
+			}
+		}
 	}
 }

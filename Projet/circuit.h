@@ -46,4 +46,6 @@ void Affiche_Lcircuit(Lcircuit* l_c);
 /* Remet tous les sommets non-noire au etat non visité. Pour la debuggage. */
 void reset_visit(Graphe* H);
 
+void CalculJminJmax(Lcircuit *l_c);
+
 #endif

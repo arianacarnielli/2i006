@@ -47,6 +47,11 @@ int main(int argc, char**argv){
 	LcircuitInitialise(&l_c);
 	Graphe_Rech_Circuit(&H, &l_c);
 	Affiche_Lcircuit(&l_c);
+	
+	printf("\n\nTest calcul jmin et jmax\n\n");
+	// Test si calcul Jmin et Jmax marche correctement.
+	CalculJminJmax(&l_c);
+	Affiche_Lcircuit(&l_c);
 		
 	/*AffGrille_init(&G, 600, &AG);
 

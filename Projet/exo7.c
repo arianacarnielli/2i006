@@ -24,7 +24,7 @@ void algorithme_exo7(Grille *G, Solution *S, int graine){
 	Affiche_Lcircuit(&l_c);
 
 
-	for (temp = l_c.premier; temp!= NULL; temp = temp->suiv){
+	for(temp = l_c.premier; temp!= NULL; temp = temp->suiv){
 		for (temp2 = (temp->L).premier; temp2 != NULL; temp2 = temp2->suiv){
 			k = temp2->i;
 			l = temp2->j;
