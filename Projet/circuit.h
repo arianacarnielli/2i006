@@ -2,7 +2,7 @@
 #define __CIRCUIT__
 
 #include "Graphe.h"
-#include "ListeDC.h"
+#include "algorithme_couleur.h"
 
 typedef struct cell_circuit{
 	LDC L;
@@ -46,6 +46,7 @@ void Affiche_Lcircuit(Lcircuit* l_c);
 /* Remet tous les sommets non-noire au etat non visité. Pour la debuggage. */
 void reset_visit(Graphe* H);
 
+/* Calcule et met a jour les jmin et jmax de tous les Cell_circuit dans l_c. */
 void CalculJminJmax(Lcircuit *l_c);
 
 #endif

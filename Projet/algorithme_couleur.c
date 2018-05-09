@@ -28,6 +28,18 @@ int LDCVide(LDC* ldc){
 	return ldc->premier == NULL;
 }
 
+void LDCInsererEnTete(LDC* ldc, int i, int j){
+	CelluleLDC* nouv = creerCellule(i, j);
+	nouv->prec = NULL;
+	if (LDCVide(ldc)){
+		ldc->dernier = nouv;
+	}else{
+		ldc->premier->prec = nouv;
+	}
+	nouv->suiv = ldc->premier;
+	ldc->premier = nouv;
+}
+
 void LDCInsererEnFin(LDC* ldc , int i, int j){
 	CelluleLDC* new = creerCellule(i, j);
 

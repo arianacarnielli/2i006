@@ -6,6 +6,40 @@ Nombre de pas: 0
 Section jouee: 
 Nombre de pas: 0
 Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
+Nombre de pas: 0
+Section jouee: 
 Nombre de pas: 1
 Section jouee: R 
 Nombre de pas: 1
@@ -22,142 +56,5 @@ Nombre de pas: 2
 Section jouee: R S R S 
 Nombre de pas: 2
 Section jouee: R S R S 
-Nombre de pas: 3
-Section jouee: R S R S R 
-Nombre de pas: 3
-Section jouee: R S R S R 
-Nombre de pas: 4
-Section jouee: R S R S R R 
-Nombre de pas: 4
-Section jouee: R S R S R R 
-Nombre de pas: 4
-Section jouee: R S R S R R S 
-Nombre de pas: 4
-Section jouee: R S R S R R S 
-Nombre de pas: 5
-Section jouee: R S R S R R S L 
-Nombre de pas: 5
-Section jouee: R S R S R R S L 
-Nombre de pas: 6
-Section jouee: R S R S R R S L L 
-Nombre de pas: 6
-Section jouee: R S R S R R S L L 
-Nombre de pas: 7
-Section jouee: R S R S R R S L L L 
-Nombre de pas: 7
-Section jouee: R S R S R R S L L L 
-Nombre de pas: 7
-Section jouee: R S R S R R S L L L S 
-Nombre de pas: 7
-Section jouee: R S R S R R S L L L S 
-Nombre de pas: 8
-Section jouee: R S R S R R S L L L S R 
-Nombre de pas: 8
-Section jouee: R S R S R R S L L L S R 
-Nombre de pas: 9
-Section jouee: R S R S R R S L L L S R R 
-Nombre de pas: 9
-Section jouee: R S R S R R S L L L S R R 
-Nombre de pas: 9
-Section jouee: R S R S R R S L L L S R R S 
-Nombre de pas: 9
-Section jouee: R S R S R R S L L L S R R S 
-Nombre de pas: 10
-Section jouee: R S R S R R S L L L S R R S R 
-Nombre de pas: 10
-Section jouee: R S R S R R S L L L S R R S R 
-Nombre de pas: 11
-Section jouee: R S R S R R S L L L S R R S R R 
-Nombre de pas: 11
-Section jouee: R S R S R R S L L L S R R S R R 
-Nombre de pas: 11
-Section jouee: R S R S R R S L L L S R R S R R S 
-Nombre de pas: 11
-Section jouee: R S R S R R S L L L S R R S R R S 
-Nombre de pas: 12
-Section jouee: R S R S R R S L L L S R R S R R S R 
-Nombre de pas: 12
-Section jouee: R S R S R R S L L L S R R S R R S R 
-Nombre de pas: 13
-Section jouee: R S R S R R S L L L S R R S R R S R R 
-Nombre de pas: 13
-Section jouee: R S R S R R S L L L S R R S R R S R R 
-Nombre de pas: 14
-Section jouee: R S R S R R S L L L S R R S R R S R R R 
-Nombre de pas: 14
-Section jouee: R S R S R R S L L L S R R S R R S R R R 
-Nombre de pas: 14
-Section jouee: R S R S R R S L L L S R R S R R S R R R S 
-Nombre de pas: 14
-Section jouee: R S R S R R S L L L S R R S R R S R R R S 
-Nombre de pas: 15
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R 
-Nombre de pas: 15
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R 
-Nombre de pas: 15
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S 
-Nombre de pas: 15
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S 
-Nombre de pas: 16
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L 
-Nombre de pas: 16
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L 
-Nombre de pas: 17
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L 
-Nombre de pas: 17
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L 
-Nombre de pas: 18
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L 
-Nombre de pas: 18
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L 
-Nombre de pas: 19
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L 
-Nombre de pas: 19
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L 
-Nombre de pas: 20
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L 
-Nombre de pas: 20
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L 
-Nombre de pas: 21
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L 
-Nombre de pas: 21
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L 
-Nombre de pas: 21
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S 
-Nombre de pas: 21
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S 
-Nombre de pas: 22
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R 
-Nombre de pas: 22
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R 
-Nombre de pas: 23
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R 
-Nombre de pas: 23
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R 
-Nombre de pas: 24
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R 
-Nombre de pas: 24
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R 
-Nombre de pas: 24
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S 
-Nombre de pas: 24
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S 
-Nombre de pas: 25
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S R 
-Nombre de pas: 25
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S R 
-Nombre de pas: 25
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S R S 
-Nombre de pas: 25
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S R S 
-Nombre de pas: 26
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S R S L 
-Nombre de pas: 26
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S R S L 
-Nombre de pas: 26
-Section jouee: R S R S R R S L L L S R R S R R S R R R S R S L L L L L L S R R R S R S L S 
-
-Vous avez gagne en 26 pas
-
-Ecriture de la solution sur disque
-
+Nombre de pas: 2
+Section jouee: R S R S 

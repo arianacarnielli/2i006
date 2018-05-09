@@ -2,8 +2,7 @@
 #include "Grille.h"
 #include "bibliotheque.h"
 #include "Graphe.h"
-#include "ListeDC.h"
-#include "Grille.h"
+#include "algorithme_couleur.h"
 #include "circuit.h"
 #include <stdlib.h>
 #include <stdio.h>

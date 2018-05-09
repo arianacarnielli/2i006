@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #include "Graphe.h"
-#include "ListeDC.h"
+#include "algorithme_couleur.h"
 #include "Grille.h"
 #include "circuit.h"
 //#include "API_AffGrille.h"

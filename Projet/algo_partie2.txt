@@ -7,9 +7,9 @@ INPUT : une grille vecteur avec une case par couleur
 • Calculer jmin et jmax pour chaque circuit
 • Faire en sorte que chaque circuit commence par sa case jmin
 • Trier la liste LC des circuits selon les jmin croissants
-• Cr ́eer une solution S vide
+• Creer une solution S vide
 • Creer un tableau de pointeurs Tref de n cases NULL.
-[Au cours de cet algorithme Tref[j] contient NULL si la case i du vecteur n’a pas ete rencontree jusqu’ici, ou il contient un pointeur de l’element de la solution S qui amene pour la derniere fois le robot a la case j lors du parcours correspondant a S. Attention : cette mise a jour de Tref doit avoir lieu meme si le robot ne fait que passer par la case en se deplacant.]
+[Au cours de cet algorithme Tref[j] contient NULL si la case j du vecteur n’a pas ete rencontree jusqu’ici, ou il contient un pointeur de l’element de la solution S qui amene pour la derniere fois le robot a la case j lors du parcours correspondant a S. Attention : cette mise a jour de Tref doit avoir lieu meme si le robot ne fait que passer par la case en se deplacant.]
 
 • Intialiser un indice de case Jdroite a 0.
 [Au cours de cet algorithme, Jdroite contiendra l’indice de la case la plus a droite visitee par le robot.]

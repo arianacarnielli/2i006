@@ -6,6 +6,7 @@
 #include "algorithme_circulaire.h"
 #include "algorithme_couleur.h"
 #include "algorithme_AVL.h"
+#include "algorithme_graphe.h"
 #include "Grille.h"
 #include "Solution.h"
 
@@ -70,6 +71,13 @@ int main(int argc, char**argv){
 			printf("Solution par l'algorithme AVL en cours...\n");
 			start = clock();
 			algorithme_AVL(&G, &S, graine);
+			duree = (double)(clock() - start) / CLOCKS_PER_SEC;
+			break;
+		
+		case 5:
+			printf("Solution par l'algorithme Graf en cours...\n");
+			start = clock();
+			algorithme_circuit_CasLigne1x1(&G, &S, graine);
 			duree = (double)(clock() - start) / CLOCKS_PER_SEC;
 			break;
 		

@@ -25,6 +25,9 @@ void LDCInitialise(LDC* ldc);
 /* Teste si la liste passe en argument est vide. */
 int LDCVide(LDC* ldc);
 
+/* Cree et insere une cellule avec les valeurs i et j a la tete de liste LDC passe en argument. */
+void LDCInsererEnTete(LDC* ldc, int i,int j);
+
 /* Cree et insere une cellule avec les valeurs i et j a la fin de liste LDC passe en argument. */
 void LDCInsererEnFin(LDC* ldc , int i, int j);  
 
