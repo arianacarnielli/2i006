@@ -1,0 +1,35 @@
+L’algorithme de Daniel Graf est le suivant :
+
+INPUT : une grille vecteur avec une case par couleur
+• Creer le graphe H
+• Creer la liste LC des circuits de H
+[Notez qu’elle est unique dans le cas "une case par couleur"]
+• Calculer jmin et jmax pour chaque circuit
+• Faire en sorte que chaque circuit commence par sa case jmin
+• Trier la liste LC des circuits selon les jmin croissants
+• Cr ́eer une solution S vide
+• Creer un tableau de pointeurs Tref de n cases NULL.
+[Au cours de cet algorithme Tref[j] contient NULL si la case i du vecteur n’a pas ete rencontree jusqu’ici, ou il contient un pointeur de l’element de la solution S qui amene pour la derniere fois le robot a la case j lors du parcours correspondant a S. Attention : cette mise a jour de Tref doit avoir lieu meme si le robot ne fait que passer par la case en se deplacant.]
+
+• Intialiser un indice de case Jdroite a 0.
+[Au cours de cet algorithme, Jdroite contiendra l’indice de la case la plus a droite visitee par le robot.]
+• Pour chaque circuit C de LC dans l’ordre des jmin croissants
+
+	• Si Tref[C→jmin] est NULL Alors
+		On met Drapeau a vrai et on sauvegarde Jdroite dans JdroiteSav
+		Inserez une sequence de deplacements "R" allant de Jdroite a C→jmin dans la solution S a la suite du pointeur Tref[Jdroite]
+		Ne pas oublier de mettre a jour Jdroite et Tref
+		[Drapeau sert a se rappeler qu’il faut revenir JdroiteSav apres ce deplacement a droite]
+	FinSi
+	
+	• Ajouter une sequence de deplacements "S", "L" et "R" correspondant au circuit C dans la solution S a la suite du pointeur Tref[C→jmin]
+	Ne pas oublier de mettre a jour Jdroite et Tref
+
+	• Si Drapeau Alors
+		On met Drapeau a faux
+		Inserez une sequence de deplacements "L" allant de C→jmin a JdroiteSav dans la solution S a la suite du pointeur Tref pour la case C→jmin
+		[Attention, il faut inserer cette sequence apres l’action "S" et non avant]
+		Ne pas oublier de mettre a jour Tref
+	FinSi
+FinPour
+OUTPUT : une sequence S optimale de deplacement du robo
