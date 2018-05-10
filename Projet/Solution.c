@@ -85,3 +85,15 @@ void Lecture_Disque(char *filename, int *m, int *n, int *nbcoul, int *graine, So
   
   fclose(f);  
 }
+
+void Solution_desalloue(Solution* S){
+	Cell_char* temp1;
+	Cell_char* temp2;
+	
+	temp1 = S->prem;
+	while(temp1){
+		temp2 = temp1->suiv;
+		free(temp1);
+		temp1 = temp2;
+	}
+}

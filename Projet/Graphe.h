@@ -31,4 +31,6 @@ void Graphe_creation(Grille *G, Graphe *H);
 
 void Graphe_affiche(Graphe *H);
 
+void Graphe_desalloue(Graphe* H);
+
 #endif

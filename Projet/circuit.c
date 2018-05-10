@@ -157,3 +157,15 @@ void CalculJminJmax(Lcircuit *l_c){
 		}
 	}
 }
+
+void Lcircuit_desalloue(Lcircuit* l_c){
+	Cell_circuit* temp1;
+	Cell_circuit* temp2;
+	temp1 = l_c->premier;
+	while(temp1){
+		LDCdesalloue(&(temp1->L));
+		temp2 = temp1->suiv;
+		free(temp1);
+		temp1 = temp2;
+	}
+}

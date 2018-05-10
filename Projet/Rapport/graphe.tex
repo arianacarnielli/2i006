@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+\node[circle, draw, thick] (A) at (2, 0) {};
+\node[circle, draw, thick] (B) at (4, 0) {};
+\node[circle, draw, thick] (C) at (0, 2) {};
+\node[circle, draw, thick] (D) at (2, 2) {};
+\node[circle, draw, thick] (E) at (2, 4) {};
+\node[circle, draw, thick] (F) at (4, 4) {};
+\node[circle, draw, thick] (G) at (0, 0) {};
+\node[circle, draw, thick] (H) at (4, 2) {};
+\node[circle, draw, thick] (I) at (0, 4) {};
+
+\draw[-Stealth, thick, red] (A) -- (B);
+\draw[-Stealth, thick, red] (B) to[in=-30, out=-150] (A);
+\draw[-Stealth] (C) -- (A);
+\draw[-Stealth] (B) to[out=105, in=-15] (D);
+\draw[-Stealth] (D) -- (B);
+\draw[-Stealth, thick, blue] (C) -- (D);
+\draw[-Stealth, thick, blue] (D) -- (E);
+\draw[-Stealth, thick, blue] (E) -- (F);
+\draw[-Stealth, thick, blue] (F) -- (C);
+\draw[-Stealth] (A) to[out=60, in=-60] (E);
+
+\node[below] at (G.south) {\scriptsize (2, 0)};
+\node[below] at (A.south) {\scriptsize (2, 1)};
+\node[below] at (B.south) {\scriptsize (2, 2)};
+
+\node[below] at (C.south) {\scriptsize (1, 0)};
+\node[below] at (D.south) {\scriptsize (1, 1)};
+\node[below] at (H.south) {\scriptsize (1, 2)};
+
+\node[above] at (I.north) {\scriptsize (0, 0)};
+\node[above] at (E.north) {\scriptsize (0, 1)};
+\node[above] at (F.north) {\scriptsize (0, 2)};
+
+
+\end{tikzpicture}

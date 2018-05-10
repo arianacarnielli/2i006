@@ -240,7 +240,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-\title{2I006 \\ Projet : Le Robot Trieur \\ Première partie : Algorithme ``au plus proche''}
+\title{2I006 \\ Projet : Le Robot Trieur}
 \author{Ariana Carnielli et Lisa Kacel}
 \date{}
 
@@ -248,9 +248,12 @@
 
 \section{Introduction}
 
-Ce projet s'intéresse à la recherche automatique des solutions pour le jeu du ``robot trieur''. Dans ce jeu, un robot se déplace dans un grille à $m$ lignes et $n$ colonnes. Chaque case possède une couleur de fond et peut comporter une pièce colorée, le nombre de cases et pièces d'une même couleur étant identique. Le robot peut porter au plus une pièce, il peut se déplacer d'une case à toutes les cases voisines, et peut échanger la pièce qu'il porte contre la pièce dans la case où il est, prendre la pièce de la case où il est s'il ne porte pas déjà une pièce, ou laisser la pièce qu'il porte dans la case où il est si celle-ci n'a pas déjà une pièce. L'objectif du jeu est de ranger chaque pièce dans une case de même couleur. Une case comportant une pièce de même couleur que son fond est appelée \emph{noire}.
+Ce projet s'intéresse à la recherche automatique des solutions pour le jeu du ``robot trieur''. Dans ce jeu, un robot se déplace dans un grille à $m$ lignes et $n$ colonnes. Chaque case possède une couleur de fond et peut comporter une pièce colorée, le nombre de cases et pièces d'une même couleur étant identique. Le robot peut porter au plus une pièce, il peut se déplacer d'une case à toutes les cases voisines, et peut échanger la pièce qu'il porte contre la pièce dans la case où il est, prendre la pièce de la case où il est s'il ne porte pas déjà une pièce, ou laisser la pièce qu'il porte dans la case où il est si celle-ci n'a pas déjà une pièce. L'objectif du jeu est de ranger chaque pièce dans une case de même couleur. Une case comportant une pièce de même couleur que son fond est appelée \emph{noire}. L'implémentation du jeu a été fournie pour ce projet.
 
-L'implémentation du jeu a été fournie pour ce projet. L'objectif de cette première partie du projet est de donner quelques implémentations différentes d'un algorithme pour résoudre le problème, appelé algorithme ``au plus proche'', et comparer leurs complexités et vitesses d'exécution.
+\section{Première partie : Algorithme ``au plus proche''}
+\label{SecAuPlusProche}
+
+L'objectif de cette première partie du projet est de donner quelques implémentations différentes d'un algorithme pour résoudre le problème, appelé algorithme ``au plus proche'', et comparer leurs complexités et vitesses d'exécution.
 
 L'algorithme ``au plus proche'' consiste à, tant qu'il reste une case non-noire, vérifier si le robot porte une pièce ou pas. S'il porte une pièce, le robot se déplace à la case la plus proche avec la même couleur de fond que la pièce et la dépose. Sinon, il cherche la plus proche case non-noire avec une pièce et se déplace pour la prendre. En cas d'égalité de distance, la priorité est donnée à la case en haut, à gauche. Les implémentations diffèrent par la méthode utilisée pour trouver la case la plus proche où se déplacer.
 
@@ -288,7 +291,7 @@ On remarque par cet exemple que chercher à chaque fois la case la plus proche a
 \label{FigExpl}
 \end{figure}
 
-\section{Version naïve}
+\subsection{Version naïve}
 \label{SecNaive}
 
 La première méthode utilisée pour chercher la case la plus proche est celle dite \emph{naïve}, qui consiste à parcourir, à chaque fois, toute la grille du jeu à partir de la case $(0, 0)$ afin de trouver la case la plus proche à la case où le robot se trouve. On a pour cela implémenté plusieurs fonctions utiles dans une bibliothèque de fonctions : la fonction \verb@PlusCourtChemin@ de la Question 1.2 et des petites fonctions qui aident à rendre le code plus lisible. La plupart d'entre elles retourne des booléens utilisés pour décider où le robot va se déplacer. En particulier, on a implémenté des fonctions répondant à la Question 1.3.
@@ -314,7 +317,7 @@ $270 \times 270$ & $30,37 s$ \tabularnewline
 \label{TempsNaive}
 \end{table}
 
-\section{Version circulaire}
+\subsection{Version circulaire}
 
 La méthode circulaire de recherche de la case $(k, l)$ la plus proche d'une case $(i, j)$ donnée consiste à démarrer la recherche depuis $(i, j)$ et chercher de façon circulaire, en augmentant la distance de $1$ à chaque fois jusqu'à ce qu'une case avec la propriété voulue soit trouvée. Par rapport à la version naïve, l'avantage est que l'on peut arrêter la recherche dès qu'une première case est trouvée, sans avoir besoin de parcourir toute la grille.
 
@@ -346,7 +349,8 @@ Pour la méthode circulaire, le pire cas correspond à lorsque la case recherch�
 
 Les expérimentations permettent de retrouver cette évaluation de la complexité. Pour la méthode naïve, en utilisant la première et la troisième lignes du tableau, on obtient $\frac{31,36 s}{22,94 s} \approx 1,34$ et $\left(\frac{270}{250}\right)^4 \approx 1,36$, ce qui valide la complexité en $\Theta(n^4)$. De même, pour la méthode circulaire, en utilisant la première et la dernière lignes du tableau, on obtient $\frac{34,98 s}{10,02 s} \approx 3,49$ et $\left(\frac{340}{250}\right)^4 \approx 3,42$, ce qui valide également le calcul théorique de la complexité en $O(n^4)$.
 
-\section{Version par couleur}
+\subsection{Version par couleur}
+\label{SecCouleur}
 
 La méthode par couleur consiste à créer un tableau de dimension 1 et longueur égale à la quantité de couleurs et contenant dans chaque case une liste doublement chainée avec les indices des cases ayant une même couleur de fond. Pour effectuer la recherche de la case la plus proche d'une couleur donnée, il suffit de parcourir la liste chainée correspondante. On ne fait donc un parcours complet de la grille qu'une seule fois, pour la construction du tableau de listes. Néanmoins, on utilise encore la méthode circulaire pour trouver une case non-noire contenant une pièce.
 
@@ -377,7 +381,7 @@ $600 \times 600$ &           &           & $33,04 s$ \tabularnewline
 
 Étudions la complexité de la méthode par couleur en fonction de $n$ et du nombre maximal de pièces d'une même couleur $\alpha$. Pour initialiser le tableau de listes chainées, il faut parcourir la grille une fois, la complexité de cette étape étant donc en $\Theta(n^2)$. Pour rechercher la case la plus proche de couleur $c$, il faut parcourir une fois la liste chainée de la couleur correspondante, et alors la complexité est $\Theta(\ell_c)$, où $\ell_c$ est la longueur de cette liste. Comme $\alpha$ est la taille de la plus grande liste, on obtient ainsi une complexité en $O(\alpha)$ pour la recherche. Comme il faut répéter la recherche pour les $n^2$ pièces, en prenant en compte aussi l'initialisation, la complexité totale est en $\Theta(n^2) + O(n^2 \alpha) = O(n^2 \alpha)$. La taille $\alpha$ de la plus grande liste est bornée par le nombre de pièces $n^2$ et ainsi, en fonction de $n$, on a une complexité en $O(n^4)$.
 
-\section{Version par AVL}
+\subsection{Version par AVL}
 \label{SecAVL}
 
 Dans la méthode par AVL, on utilise des arbres binaires de recherche équilibrées du type AVL pour faciliter la recherche de la case la plus proche avec une couleur donnée. Plus précisément, on crée un tableau \verb@M@ d'arbres AVL de dimension \verb@m@ $\times$ \verb@nb_coul@, où \verb@m@ est le nombre de lignes de la grille et \verb@nb_coul@ le nombre de couleurs utilisées dans la grille. L'arbre \verb@M[i][c]@ contient les indices de colonne \verb@j@ de toutes les cases de la grille dans la ligne \verb@i@ et de couleur de fond \verb@c@.
@@ -427,8 +431,89 @@ La Figure \ref{FigGraphes} donne les graphes des temps d'exécution de l'algorit
 \label{FigGraphes}
 \end{figure}
 
-\newpage
+\section{Deuxième partie : Grilles de jeu à une case par couleur}
 
-\mbox{}
+Dans cette deuxième partie, on s'est intéressé au cas particulier où la grille satisfait deux conditions : d'une part, elle n'est composée que d'une seule ligne, c'est-à-dire $m = 1$, et, d'autre part, il n'y a qu'une seule pièce et une seule case par couleur, c'est-à-dire $n = {}$\verb@nb_coul@. Ce choix simplificateur est motivé par l'existence d'un algorithme polynomial pour résoudre une telle grille avec le nombre minimal de déplacements.
+
+L'implémentation de cet algorithme nécessite une décomposition en circuits d'un graphe sous-jacent à la grille. La construction de ce graphe et la décomposition en circuits sont indépendantes des conditions supplémentaires sur la grille, et ont donc été implémentées en toute généralité. La description de cette implémentation est donnée dans la Section \ref{SecGrapheCircuits}. L'implémentation de l'algorithme en soi est décrite dans la Section \ref{SecAlgo}.
+
+\subsection{Graphe et circuit}
+\label{SecGrapheCircuits}
+
+\subsubsection*{Graphe}
+
+Un graphe $H = (V, A)$ est obtenu à partir d'une grille $G$ de la façon suivante : chaque case de la grille est un sommet de $H$ et il y a un arc du sommet $(i, j)$ au sommet $(i^\prime, j^\prime)$ si et seulement si ces deux sommets correspondent à des cases non-noires et la pièce dans $(i, j)$ a la même couleur que le fond de $(i^\prime, j^\prime)$. Ainsi, la grille de la Figure \ref{FigGrilleGraphe}(a), obtenue avec $m = 3$, $n = 3$, \verb@nb_coul@${} = 4$ et la graine aléatoire $0$, donne le graphe de la Figure \ref{FigGrilleGraphe}(b).
+
+\begin{figure}
+\centering
+\begin{tabular}{@{} >{\centering} m{0.5\textwidth} @{} >{\centering} m{0.5\textwidth} @{}}
+\includegraphics[width=0.4\textwidth]{3_3_4_0} & \input{graphe} \tabularnewline
+(a) & (b) \tabularnewline
+\end{tabular}
+\caption{Exemple (a) d'une grille de jeu et (b) son graphe correspondant.}
+\label{FigGrilleGraphe}
+\end{figure}
+
+Des fonctions ont été fournies pour créer un graphe à partir d'une grille. Ces fonctions implémentent le graphe par liste d'adjacence : un sommet est représenté par une structure \verb@Sommet@ contenant ses coordonnées $(i, j)$ et sa liste de successeurs, ainsi qu'un marqueur de visite. La liste de successeurs d'un sommet est une liste de structures \verb@Arc@, contenant chacune un pointeur vers le sommet successeur correspondant et un pointeur vers le prochain arc de la liste. Un tableau contenant tous les sommets est inclus dans uns structure \verb@Graphe@, qui contient aussi les dimensions de ce tableau.
+
+Une bibliothèque pour manipuler des listes doublement chainées a également été fournie. Cependant, cette bibliothèque contenait essentiellement les mêmes fonctions que l'on avait déjà implémentées dans la Section \ref{SecCouleur} pour la version par couleur de l'algorithme ``au plus proche''. Ainsi, on a décidé d'utiliser nos fonctions après avoir vérifié que leur comportement était identique aux fonctions fournies.
+
+Par rapport à la bibliothèque de graphe fournie, on a modifié la fonction de création d'un graphe. En effet, celle-ci utilise une liste doublement chainée pour stocker les cases de la grille séparées par couleur, mais la version donnée n'initialisait pas ces listes, ce qui peut donner des problèmes d'accès à une zone non-allouée de la mémoire. En plus, lors de l'insertion des cases dans ces listes, nous profitions pour marquer les cases noires dans le graphe.
+
+\subsubsection*{Circuits}
+
+Avec cette structure de graphe en place, on a cherché à trouver un ensemble de circuits couvrant tous les sommets non-noires, c'est-à-dire de trouver des circuits tels que tout sommet non-noire du graphe appartient à un et un seul de ces circuits. Par exemple, les circuits en rouge et en bleu de la Figure \ref{FigGrilleGraphe}(b) satisfont ces propriétés. Une telle décomposition en circuits n'est pas unique en général, mais elle le sera dès que l'on est dans le cas où l'on a exactement une case de chaque couleur.
+
+Pour l'implémentation, chaque circuit est représenté par une liste doublement chainée contenant les sommets appartenant à ce circuit. Pour faciliter l'implémentation de l'algorithme de la Section \ref{SecAlgo}, nous avons décidé de rajouter le sommet de départ de ce circuit au début et à la fin de la liste. L'ensemble des circuits est représenté par une liste de circuits à travers une structure \verb@Lcircuit@.
+
+Nous avons implémenté dans un premier temps une fonction \verb@Rech_Circuit@ qui, étant donné un sommet non-noir du graphe, crée une liste de sommets correspondant à un circuit à partir du sommet donné et marque tous ces sommets comme visités. Son fonctionnement est itératif et repose sur une boucle sur les sommets parcourus : à une étape où l'on est dans un sommet $s$ donné, on parcourt la liste de successeurs de ce sommet. Pour chaque successeur, on vérifie d'abord s'il est le sommet duquel on est parti, auquel cas le circuit est fermé et la boucle se termine. Sinon, s'il n'a pas encore été visité, on passe à ce sommet et on commence une nouvelle itération de la boucle.
+
+Remarquons que, grâce à la construction de ce graphe à partir de la grille, lors du parcours précédent, il existe toujours un sommet successeur qui n'a pas encore été visité ou qui est le sommet de départ. En effet, si l'on est dans un sommet $s$ comportant une pièce de couleur $c$, soit $P_c \subset V$ l'ensemble de sommets avec pièce de couleur $c$ et $F_c \subset V$ l'ensemble de sommets avec couleur de fond $c$. D'après la construction de la grille et du graphe, ces deux ensembles ont la même quantité d'éléments et la liste d'adjacence de chaque sommet de $P_c$ contient exactement les sommets de $F_c$. Or, si tous les sommets de $F_c$ avaient déjà été visités et aucun d'entre eux n'est le sommet de départ, alors forcément tous les sommets de $P_c$ auraient déjà été visités auparavant, ce qui ne peut pas être le cas puisque l'on est dans le sommet $s \in P_c$.
+
+Nous avons ensuite implémenté une fonction \verb@Graphe_Rech_Circuit@ qui recherche tous les circuits du graphe et les stocke dans une liste de circuits. Pour cela, elle parcourt simplement tous les sommets du graphe, appelant la fonction \verb@Rech_Circuit@ à chaque sommet non-noir non-visité trouvé et rajoutant le circuit correspondant à la liste. Pour l'implémenter, nous avons crée une bibliothèque de fonctions permettant la manipulation des listes \verb@Lcircuit@ avec des fonctions d'initialisation, création d'éléments, test de liste vide, insertion en fin en $O(1)$ et affichage.
+
+\subsection{Algorithme ``vecteur avec une case par couleur''}
+\label{SecAlgo}
+
+On se place maintenant sous les hypothèses présentées au début de la section : grille à une seule ligne et une seule case par couleur. L'algorithme proposé requiert une liste des circuits du graphe de tel sorte que chaque circuit commence par sa case le plus à gauche et les circuits sont triés par ordre croissant d'indices $j$ de cette première case. Ces conditions sont automatiquement remplies grâce à la façon dont les fonctions précédentes ont été codées --- \verb@Graphe_Rech_Circuit@ parcourt la grille de gauche à droite et insère les circuits en queue de liste. L'algorithme demande aussi de connaitre les plus petit et plus grand indices de colonnes, \verb@jmin@ et \verb@jmax@, de chaque circuit. On a implémenté une fonction qui prend en argument la liste de tous les circuits, calcule et met à jour ces deux valeurs (qui sont stockées avec les listes). 
+
+Une fois ces prérequis satisfaits, on passe à l’implémentation de l'algorithme. Son objectif est de donner une suite de mouvements résolvant la grille en nombre minimal de pas. Pour cela, il insère les mouvements nécessaires pour parcourir chaque circuit, en cherchant à commencer ces parcours au meilleur moment. Plus précisément, pour rajouter les mouvements d'un circuit on regarde si on a déjà passé sur la case avec le \verb@jmin@ correspondant. Si oui, on insère ces mouvements juste après le dernier passage du robot par \verb@jmin@. Sinon, il regarde la case la plus à droite déjà parcourue et place ces mouvements juste après le dernier passage du robot par là. 
+
+Pour coder cet algorithme on a créé 3 fonctions auxiliaires. La première prend une séquence de mouvements et ajoute un nouveau mouvement après une position donnée. La deuxième itère la première pour ajouter un chemin entre deux indices donnés. La dernière utilise les 2 autres pour ajouter après une position donnée tous les mouvements correspondants à un circuit. Avec ces 3 fonctions on a pu implémenter l'algorithme et tester son fonctionnement.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{1_6_6_8}
+\caption{Grille de test de l'algorithme.}
+\label{FigGrille1668}
+\end{figure}
+
+Lors des tests, on a trouvé une situation où l'algorithme donnait un bon résultat, mais avec un mouvement en trop après le dernier échange de pièces. Il s'agit de la grille de la Figure \ref{FigGrille1668}, avec 6 colonnes, 6 couleurs, et obtenue avec la graine aléatoire 8. Pour cette grille, la case $(0, 0)$ est noire. Notre première implémentation de l'algorithme a donné la solution suivante:
+
+\texttt{R S R S R R R S L S L L L S L}
+
+Cette solution résout bien la grille, mais le mouvement \texttt{L} à la fin est en trop, la grille est déjà résolue après le dernier \texttt{S}. Ce problème est spécifique au cas où la case $(0, 0)$ est noire. En effet, pour insérer un circuit avec un \verb@jmin@ qui n'a pas encore été visité, ce qui est le cas dans cet exemple, l'algorithme se déplace de la case la plus à droite qu'il a déjà visitée --- $(0, 0)$ dans cet exemple --- à ce \verb@jmin@, insère le circuit, et ensuite revient à la case où il était avant. Cependant, le retour n'est pas nécessaire dans ce cas particulier. Pour le corriger, on a donc effectué un test supplémentaire : si la case la plus à droite que l'on a visité est $(0, 0)$, la position de retour après le parcours du circuit est définie comme \verb@jmin@, c'est-à-dire, il ne fait pas de retour après le parcours du circuit. Avec cette modification, l'algorithme retourne bien la séquence ci-dessous sans le dernier \texttt{L}, comme attendu.
+
+On a testé le temps d'exécution de l'algorithme pour des grilles de tailles différentes. Pour chaque taille, nous avons généré 50 graines aléatoirement et calculé le temps moyen d'exécution de l'algorithme sur les grilles correspondantes. Les résultats sont présentés sur la Figure \ref{FigTempsGraphe}, où l'on peut voir la croissance quadratique du temps d'exécution, comme attendu, mise en évidence par la Figure \ref{FigTempsGraphe}(b), qui représente le temps d'exécution divisé par $n^2$.
+
+\begin{figure}[ht]
+\centering
+\begin{tabular}{@{} >{\centering} m{0.5\textwidth} @{} >{\centering} m{0.5\textwidth} @{}}
+\includegraphics[width=0.5\textwidth]{TempsGraphe.pdf} & \includegraphics[width=0.5\textwidth]{TempsGrapheN2.pdf} \tabularnewline
+(a) & (b) \tabularnewline
+\end{tabular}
+\caption{Temps d'exécution de l'algorithme.}
+\label{FigTempsGraphe}
+\end{figure}
+
+Il est à noter que les résultats représentés sur la Figure \ref{FigTempsGraphe} ne sont pas directement comparables à ceux de la Figure \ref{FigGraphes}. En effet, ici, la grille est de taille $1 \times n$, contenant donc $n$ cases, chacune avec une couleur différente, alors que, pour la Figure \ref{FigGraphes}, la grille, de taille $n \times n$, contenait $n^2$ cases de uniquement $10$ couleurs.
+
+Pour pouvoir faire ces tests, il nous a fallu implémenter des fonctions pour désallouer la mémoire utilisée par les structures de l'algorithme afin de répéter plusieurs simulations sans avoir de fuite de mémoire. En particulier, la taille de la structure qui stocke la solution devient rapidement importante lorsque $n$ croit. Comme dans les tests de la Section \ref{SecAuPlusProche}, nous avons désactivé l'écriture de la solution en disque pour éviter l'écriture de grands fichiers, couteuse en temps et en mémoire.
+
+\subsection{Solution naïve dans le cas général}
+
+Avant d'avoir vu l'algorithme précédent pour le cas d'un vecteur à une case par couleur, on a cherché à utiliser la structure de graphe pour coder un solveur très naïf pour le cas général de grilles de taille quelconque sans contrainte sur le nombre de couleurs. Ce solveur servait notamment à tester la création des listes de circuits et ne cherchait pas à minimiser la quantité de pas ni à avoir le même comportement que l'algorithme ``au plus proche'' de la Section \ref{SecAuPlusProche}. Il s'agit simplement de parcourir la liste de circuits en faisant les déplacements correspondants à chaque circuit et d'aller d'un circuit au suivant.
+
+On peut noter qu'il est relativement simple de modifier cette implémentation pour coder une version de l'algorithme ``au plus proche''. En effet, il suffit de, lors de la création des circuits, chercher, pour chaque sommet, son successeur à plus petite distance. Une fois le circuit fermé, on doit chercher la case non-noire la plus proche pour commencer le circuit suivant, cette recherche pouvant être faite comme dans l'algorithme circulaire, par exemple. Cependant, cette méthode ne semble pas aussi efficace que les méthodes de la Section \ref{SecAuPlusProche}, notamment la méthode par AVL, et, par manque de temps, on ne l'a pas implémentée.
 
 \end{document}

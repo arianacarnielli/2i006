@@ -49,4 +49,7 @@ void reset_visit(Graphe* H);
 /* Calcule et met a jour les jmin et jmax de tous les Cell_circuit dans l_c. */
 void CalculJminJmax(Lcircuit *l_c);
 
+/* Desallocation d'une liste Lcircuit. */
+void Lcircuit_desalloue(Lcircuit* l_c);
+
 #endif

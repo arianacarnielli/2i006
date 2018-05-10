@@ -106,7 +106,12 @@ void algorithme_circuit_CasLigne1x1(Grille *G, Solution *S, int graine){
 		if (Tref[temp->jmin] == NULL){
 			//On met Drapeau a vrai et on sauvegarde Jdroite dans JdroiteSav
 			Drapeau = 1;
-			JdroiteSav = Jdroite;
+			// Il faut tester pour eviter le cas ou le robot essaie de retourner vers la case (0,0) même si elle etait noire au debut.
+			if(Jdroite == 0){
+				JdroiteSav = temp->jmin;
+			}else{	
+				JdroiteSav = Jdroite;
+			}
 			
 			//Inserez une sequence de deplacements "R" allant de Jdroite a C->jmin dans la solution S a la suite du pointeur Tref[Jdroite]
 			//mettre a jour Tref
@@ -130,5 +135,11 @@ void algorithme_circuit_CasLigne1x1(Grille *G, Solution *S, int graine){
 			pluscourtchemin_apres_c(S, Tref[temp->jmin]->suiv, temp->jmin, JdroiteSav, Tref);
 		}
 	}
-	Ecriture_Disque(G->m, G->n, G->nbcoul, graine, S);
+	//Ecriture_Disque(G->m, G->n, G->nbcoul, graine, S);
+	
+	Graphe_desalloue(&H);
+	
+	Lcircuit_desalloue(&l_c);
+	
+	Solution_desalloue(S);
 }

@@ -98,3 +98,22 @@ void Graphe_affiche(Graphe *H){
 		}
 	}
 }
+
+void Graphe_desalloue(Graphe* H){
+	int i, j;
+	Arc* arcTemp1;
+	Arc* arcTemp2;
+	for (i = 0; i < H->m; i++) {
+		for (j = 0; j < H->n; j++) {
+			arcTemp1 = H->Tsom[i][j]->Lsucc;
+			while(arcTemp1){
+				arcTemp2 = arcTemp1->suiv;
+				free(arcTemp1);
+				arcTemp1 = arcTemp2;
+			}
+			free(H->Tsom[i][j]);
+		}
+		free(H->Tsom[i]);
+	}
+	free(H->Tsom);
+}

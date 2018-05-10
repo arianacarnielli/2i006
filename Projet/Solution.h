@@ -34,4 +34,7 @@ void Ecriture_Disque(int m, int n, int nbcoul, int graine, Solution *S);
 // La solution doit avoir ete initialisee auparavant
 void Lecture_Disque(char *filename, int *m, int *n, int *nbcoul, int *graine, Solution *S);
 
+// Desalloue la liste Solution.
+void Solution_desalloue(Solution* S);
+
 #endif
