@@ -135,7 +135,7 @@ void algorithme_circuit_CasLigne1x1(Grille *G, Solution *S, int graine){
 			pluscourtchemin_apres_c(S, Tref[temp->jmin]->suiv, temp->jmin, JdroiteSav, Tref);
 		}
 	}
-	//Ecriture_Disque(G->m, G->n, G->nbcoul, graine, S);
+	Ecriture_Disque(G->m, G->n, G->nbcoul, graine, S);
 	
 	Graphe_desalloue(&H);
 	
